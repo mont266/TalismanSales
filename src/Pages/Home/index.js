@@ -15,7 +15,7 @@ function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn About epicness
         </a>
       </header>
     </div>
