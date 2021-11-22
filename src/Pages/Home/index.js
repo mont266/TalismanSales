@@ -12,11 +12,11 @@ import Button from "@mui/material/Button"
 import useWindowDimensions from "../../Hooks/ScreenDimensions"
 import MobileTabs from "../../Components/MobileTabs"
 
-import logo from "./logo.svg"
+import logo from "./biglogo.png"
 import "./Home.css"
 
 function Home() {
-  const { height, width } = useWindowDimensions()
+  const { width } = useWindowDimensions()
   const [website, setWebsite] = useState("")
   const [value, setValue] = useState("one")
 
