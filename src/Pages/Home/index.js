@@ -16,8 +16,8 @@ import "./Home.css"
 
 function Home() {
   const { height, width } = useWindowDimensions()
-  const [website, setWebsite] = useState("")
-  const [value, setValue] = useState("one")
+  const [website, setWebsite] = useState('')
+  const [value, setValue] = useState('one')
 
   const handleChange = (event) => {
     setWebsite(event.target.value)
