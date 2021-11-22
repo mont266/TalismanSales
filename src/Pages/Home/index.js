@@ -44,7 +44,7 @@ function Home() {
             <Tab value="one" label="Full Website" />
             <Tab value="two" label="Landing Page" />
             <Tab value="three" label="Accommodation Website" />
-            <Tab value="three" label="Social Media Page" />
+            <Tab value="four" label="Social Media Page" />
           </Tabs>
         </Box>
       )}
