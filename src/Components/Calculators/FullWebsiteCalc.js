@@ -162,7 +162,7 @@ const FullWebsiteCalc = () => {
   const calculateCost = () => {
     setShowCost(true)
 
-    setPageRes(pageCost * pageQty + 1.5 * pageQty)
+    setPageRes((pageCost * pageQty) + (1.5 * pageQty))
     setContentRes(contentCost * contentQty)
     setBlogRes(blogCost * blogQty)
     setAnalyticsRes(analyticsCost * analyticsQty)
