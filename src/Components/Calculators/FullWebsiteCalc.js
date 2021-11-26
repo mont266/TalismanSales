@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import Typography from '@mui/material/Typography'
 import Box from "@mui/material/Box"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -90,6 +91,7 @@ const FullWebsiteCalc = () => {
       setBlogQty(1)
       setHostQty(1)
       setDomainQty(1)
+      setCreditQty(1)
     } else {
       setContentQty(0)
       setLivechatQty(0)
@@ -99,6 +101,7 @@ const FullWebsiteCalc = () => {
       setBlogQty(0)
       setHostQty(0)
       setDomainQty(0)
+      setCreditQty(0)
     }
   }, [
     maintenance,
@@ -115,53 +118,7 @@ const FullWebsiteCalc = () => {
     talismanWatermark,
   ])
 
-  const handlePageQty = (event) => {
-    setPageQty(event.target.value)
-  }
-
-  const handleMaintenance = (event) => {
-    setMaintenance(event.target.value)
-  }
-
-  const handleContent = (event) => {
-      setContentCreation(event.target.value)
-  }
-
-  const handleLiveChat = (event) => {
-      setLiveChat(event.target.value)
-  }
-
-  const handleEcommerce = (event) => {
-      setEcommerce(event.target.value)
-  }
-
-  const handleBLog = (event) => {
-      setBlog(event.target.value)
-  }
-
-  const handleAnalytics = (event) => {
-      setAnalytics(event.target.value)
-  }
-
-  const handleWebHosting = (event) => {
-      setWebHosting(event.target.value)
-  }
-
-  const handleDomainReg = (event) => {
-      setDomainReg(event.target.value)
-  }
-
-  const handleWatermark = (event) => {
-      setTalismanWatermark(event.target.value)
-  }
-
-  const handleDiscount = (event) => {
-      setDiscount(event.target.value)
-  }
-
-  const calculateCost = () => {
-    setShowCost(true)
-
+  useEffect(() => {
     setPageRes((pageCost * pageQty) + (1.5 * pageQty))
     setContentRes(contentCost * contentQty)
     setBlogRes(blogCost * blogQty)
@@ -172,29 +129,99 @@ const FullWebsiteCalc = () => {
     setEcommerceRes(ecommerceCost * ecommerceQty)
     setEcommerceMonRes(ecommerceMonCost * ecommerceMonQty)
     setCreditRes(creditDisc * creditQty)
+  }, [
+    pageCost,
+    pageQty,
+    contentCost,
+    contentQty,
+    blogCost,
+    blogQty,
+    analyticsCost,
+    analyticsQty,
+    hostCost,
+    hostQty,
+    domainFee,
+    domainQty,
+    liveChatCost,
+    livechatQty,
+    ecommerceCost,
+    ecommerceQty,
+    ecommerceMonCost,
+    ecommerceMonQty,
+    creditDisc,
+    creditQty,
+  ])
 
-    if (discount !== "0 %") {
-      setShowDiscount(true)
-    } else {
+  const handlePageQty = (event) => {
+    setPageQty(event.target.value)
+  }
+
+  const handleMaintenance = (event) => {
+    setMaintenance(event.target.value)
+  }
+
+  const handleContent = (event) => {
+    setContentCreation(event.target.value)
+  }
+
+  const handleLiveChat = (event) => {
+    setLiveChat(event.target.value)
+  }
+
+  const handleEcommerce = (event) => {
+    setEcommerce(event.target.value)
+  }
+
+  const handleBLog = (event) => {
+    setBlog(event.target.value)
+  }
+
+  const handleAnalytics = (event) => {
+    setAnalytics(event.target.value)
+  }
+
+  const handleWebHosting = (event) => {
+    setWebHosting(event.target.value)
+  }
+
+  const handleDomainReg = (event) => {
+    setDomainReg(event.target.value)
+  }
+
+  const handleWatermark = (event) => {
+    setTalismanWatermark(event.target.value)
+  }
+
+  const handleDiscount = (event) => {
+    setDiscount(event.target.value)
+  }
+
+  const calculateCost = () => {
+      setShowCost(true)
+
+      if (discount !== "0 %") {
+        setShowDiscount(true)
+      } else {
         setShowDiscount(false)
-    }
-
-    if (discount === "0 %") {
-      setInitRes(initRes)
-      setSavings(0)
-    } else if (discount === "5 %") {
-      setInitRes(initRes * 0.95)
-      setSavings(initRes * 0.05)
-    } else if (discount === "10 %") {
-      setInitRes(initRes * 0.9)
-      setSavings(initRes * 0.1)
-    } else if (discount === "15 %") {
-      setInitRes(initRes * 0.85)
-      setSavings(initRes * 0.15)
-    } else if (discount === "20 %") {
-      setInitRes(initRes * 0.8)
-      setSavings(initRes * 0.2)
-    } 
+      }
+  
+      if (discount === "0 %") {
+        setInitRes(initRes)
+        setSavings(0)
+      } else if (discount === "5 %") {
+        setInitRes(initRes * 0.95)
+        setSavings(initRes * 0.05)
+      } else if (discount === "10 %") {
+        setInitRes(initRes * 0.9)
+        setSavings(initRes * 0.1)
+      } else if (discount === "15 %") {
+        setInitRes(initRes * 0.85)
+        setSavings(initRes * 0.15)
+      } else if (discount === "20 %") {
+        setInitRes(initRes * 0.8)
+        setSavings(initRes * 0.2)
+      }
+      
       setInitRes(
         websiteCost +
           pageRes +
@@ -207,6 +234,7 @@ const FullWebsiteCalc = () => {
           domainRes -
           creditRes
       )
+
       setResMonthly(hostRes + mainRes + ecommerceMonRes)
       setResYearly(resMonthly * 12 - 12)
       setDeposit(initRes / 2)
@@ -386,18 +414,18 @@ const FullWebsiteCalc = () => {
         </FormControl>
       </Box>
       {showCost ? (
-        <>
-          <p>Full payment: £ {initRes}</p>
-          <p>
+        <div style={{textAlign: 'center'}}>
+          <Typography >Full payment: £ {initRes}</Typography >
+          <Typography >
             £ {resMonthly} Per Month £ {resYearly} Yearly
-          </p>
-          <p>Deposit: £ {deposit}</p>
-        </>
+          </Typography >
+          <Typography >Deposit: £ {deposit}</Typography >
+        </div>
       ) : null}
       {showDiscount ? (
-        <>
-          <p>Client Saves: £ {savings} with discount</p>
-        </>
+        <div style={{textAlign: 'center'}}>
+          <Typography >Client Saves: £ {savings} with discount</Typography >
+        </div>
       ) : null}
       <Button
         onClick={calculateCost}
