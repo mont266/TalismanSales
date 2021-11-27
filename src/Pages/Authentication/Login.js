@@ -53,8 +53,7 @@ const Login = () => {
     }
     // eslint-disable-next-line no-console
     console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+      email: data.get(email),
     })
   }
 
@@ -90,6 +89,7 @@ const Login = () => {
               autoComplete="email"
               autoFocus
               onChange={emailChange}
+              value={email}
             />
             <TextField
               margin="normal"

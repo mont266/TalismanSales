@@ -34,18 +34,8 @@ const FullWebsiteCalc = () => {
   const [ecommerceQty, setEcommerceQty] = useState(0)
   const [ecommerceMonQty, setEcommerceMonQty] = useState(0)
   const [creditQty, setCreditQty] = useState(0)
-  //const [pageRes, setPageRes] = useState(0)
-  //const [contentRes, setContentRes] = useState(0)
-  //const [blogRes, setBlogRes] = useState(0)
-  //const [analyticsRes, setAnalyticsRes] = useState(0)
-  //const [hostRes, setHostRes] = useState(0)
-  //const [domainRes, setDomainRes] = useState(0)
-  //const [liveChatRes, setLiveChatRes] = useState(0)
-  //const [ecommerceRes, setEcommerceRes] = useState(0)
-  //const [ecommerceMonRes, setEcommerceMonRes] = useState(0)
-  //const [creditRes, setCreditRes] = useState(0)
-  const [mainRes, setMainRes] = useState(0)
   const [initRes, setInitRes] = useState(0)
+  const [mainRes, setMainRes] = useState(0)
   const [resMonthly, setResMonthly] = useState(0)
   const [resYearly, setResYearly] = useState(0)
   const [deposit, setDeposit] = useState(0)
@@ -62,10 +52,6 @@ const FullWebsiteCalc = () => {
   const [discount, setDiscount] = useState("0 %")
   const [showCost, setShowCost] = useState(false)
   const [showDiscount, setShowDiscount] = useState(false)
-
-  console.log('ec: ', ecommerceQty)
-  console.log('ecmon', ecommerceMonQty)
-  console.log('content: ', contentQty)
 
   useEffect(() => {
     if (maintenance === "low") {
@@ -145,6 +131,12 @@ const FullWebsiteCalc = () => {
     }
   }, [talismanWatermark])
 
+  useEffect(() => {
+    if (initRes > 0) {
+      setDeposit(initRes / 2)
+    }
+  }, [initRes])
+
   const handlePageQty = (event) => {
     setPageQty(event.target.value)
   }
@@ -201,6 +193,7 @@ const FullWebsiteCalc = () => {
       const ecommerceRes = ecommerceCost * ecommerceQty
       const ecommerceMonRes = ecommerceMonCost * ecommerceMonQty
       const creditRes = creditDisc * creditQty
+      const resMonthly = hostRes + mainRes + ecommerceMonRes
 
       if (discount !== "0 %") {
         setShowDiscount(true)
@@ -224,7 +217,7 @@ const FullWebsiteCalc = () => {
         setInitRes(initRes * 0.8)
         setSavings(initRes * 0.2)
       }
-      
+
       setInitRes(
         websiteCost +
           pageRes +
@@ -240,7 +233,6 @@ const FullWebsiteCalc = () => {
 
       setResMonthly(hostRes + mainRes + ecommerceMonRes)
       setResYearly(resMonthly * 12 - 12)
-      setDeposit(initRes / 2)
   }
 
   return (
