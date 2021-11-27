@@ -8,21 +8,22 @@ import Select from "@mui/material/Select"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
 
+const websiteCost = 450.0
+const pageCost = 8.0
+const contentCost = 60.0
+const blogCost = 60.0
+const analyticsCost = 25.0
+const hostCost = 6.0
+const domainFee = 10.0
+const liveChatCost = 10.0
+const ecommerceCost = 300.0
+const ecommerceMonCost = 12.0
+const creditDisc = 10.0
+const mainLow = 10.0
+const mainMed = 15.0
+const mainHigh = 25.0
+
 const FullWebsiteCalc = () => {
-  const [websiteCost] = useState(450.0)
-  const [pageCost] = useState(8.0)
-  const [contentCost] = useState(60.0)
-  const [blogCost] = useState(60.0)
-  const [analyticsCost] = useState(25.0)
-  const [hostCost] = useState(6.0)
-  const [domainFee] = useState(10.0)
-  const [liveChatCost] = useState(10.0)
-  const [ecommerceCost] = useState(300.0)
-  const [ecommerceMonCost] = useState(12.0)
-  const [creditDisc] = useState(10.0)
-  const [mainLow] = useState(10.0)
-  const [mainMed] = useState(15.0)
-  const [mainHigh] = useState(25.0)
   const [pageQty, setPageQty] = useState(0)
   const [contentQty, setContentQty] = useState(0)
   const [blogQty, setBlogQty] = useState(0)
@@ -33,16 +34,16 @@ const FullWebsiteCalc = () => {
   const [ecommerceQty, setEcommerceQty] = useState(0)
   const [ecommerceMonQty, setEcommerceMonQty] = useState(0)
   const [creditQty, setCreditQty] = useState(0)
-  const [pageRes, setPageRes] = useState(0)
-  const [contentRes, setContentRes] = useState(0)
-  const [blogRes, setBlogRes] = useState(0)
-  const [analyticsRes, setAnalyticsRes] = useState(0)
-  const [hostRes, setHostRes] = useState(0)
-  const [domainRes, setDomainRes] = useState(0)
-  const [liveChatRes, setLiveChatRes] = useState(0)
-  const [ecommerceRes, setEcommerceRes] = useState(0)
-  const [ecommerceMonRes, setEcommerceMonRes] = useState(0)
-  const [creditRes, setCreditRes] = useState(0)
+  //const [pageRes, setPageRes] = useState(0)
+  //const [contentRes, setContentRes] = useState(0)
+  //const [blogRes, setBlogRes] = useState(0)
+  //const [analyticsRes, setAnalyticsRes] = useState(0)
+  //const [hostRes, setHostRes] = useState(0)
+  //const [domainRes, setDomainRes] = useState(0)
+  //const [liveChatRes, setLiveChatRes] = useState(0)
+  //const [ecommerceRes, setEcommerceRes] = useState(0)
+  //const [ecommerceMonRes, setEcommerceMonRes] = useState(0)
+  //const [creditRes, setCreditRes] = useState(0)
   const [mainRes, setMainRes] = useState(0)
   const [initRes, setInitRes] = useState(0)
   const [resMonthly, setResMonthly] = useState(0)
@@ -62,6 +63,10 @@ const FullWebsiteCalc = () => {
   const [showCost, setShowCost] = useState(false)
   const [showDiscount, setShowDiscount] = useState(false)
 
+  console.log('ec: ', ecommerceQty)
+  console.log('ecmon', ecommerceMonQty)
+  console.log('content: ', contentQty)
+
   useEffect(() => {
     if (maintenance === "low") {
       setMainRes(mainLow)
@@ -72,85 +77,73 @@ const FullWebsiteCalc = () => {
     } else if (maintenance === "none") {
       setMainRes(0)
     }
-
-    if (
-      contentCreation &&
-      liveChat &&
-      ecommerce &&
-      blog &&
-      analytics &&
-      webHosting &&
-      domainReg &&
-      talismanWatermark === "yes"
-    ) {
-      setContentQty(1)
-      setLivechatQty(1)
-      setAnalyticsQty(1)
-      setEcommerceQty(1)
-      setEcommerceMonQty(1)
-      setBlogQty(1)
-      setHostQty(1)
-      setDomainQty(1)
-      setCreditQty(1)
-    } else {
-      setContentQty(0)
-      setLivechatQty(0)
-      setAnalyticsQty(0)
-      setEcommerceQty(0)
-      setEcommerceMonQty(0)
-      setBlogQty(0)
-      setHostQty(0)
-      setDomainQty(0)
-      setCreditQty(0)
-    }
-  }, [
-    maintenance,
-    mainLow,
-    mainMed,
-    mainHigh,
-    contentCreation,
-    liveChat,
-    ecommerce,
-    blog,
-    analytics,
-    webHosting,
-    domainReg,
-    talismanWatermark,
-  ])
+  }, [maintenance])
 
   useEffect(() => {
-    setPageRes((pageCost * pageQty) + (1.5 * pageQty))
-    setContentRes(contentCost * contentQty)
-    setBlogRes(blogCost * blogQty)
-    setAnalyticsRes(analyticsCost * analyticsQty)
-    setHostRes(hostCost * hostQty)
-    setDomainRes(domainFee * domainQty)
-    setLiveChatRes(liveChatCost * livechatQty)
-    setEcommerceRes(ecommerceCost * ecommerceQty)
-    setEcommerceMonRes(ecommerceMonCost * ecommerceMonQty)
-    setCreditRes(creditDisc * creditQty)
-  }, [
-    pageCost,
-    pageQty,
-    contentCost,
-    contentQty,
-    blogCost,
-    blogQty,
-    analyticsCost,
-    analyticsQty,
-    hostCost,
-    hostQty,
-    domainFee,
-    domainQty,
-    liveChatCost,
-    livechatQty,
-    ecommerceCost,
-    ecommerceQty,
-    ecommerceMonCost,
-    ecommerceMonQty,
-    creditDisc,
-    creditQty,
-  ])
+    if (contentCreation === 'yes') {
+      setContentQty(1)
+    } else {
+      setContentQty(0)
+    }
+  }, [contentCreation])
+
+  useEffect(() => {
+    if (liveChat === 'yes') {
+      setLivechatQty(1)
+    } else {
+      setLivechatQty(0)
+    }
+  }, [liveChat])
+
+  useEffect(() => {
+    if (ecommerce === 'yes') {
+      setEcommerceQty(1)
+      setEcommerceMonQty(1)
+    } else {
+      setEcommerceQty(0)
+      setEcommerceMonQty(0)
+    }
+  }, [ecommerce])
+
+  useEffect(() => {
+    if (blog === 'yes') {
+      setBlogQty(1)
+    } else {
+      setBlogQty(0)
+    }
+  }, [blog])
+
+  useEffect(() => {
+    if (analytics === 'yes') {
+      setAnalyticsQty(1)
+    } else {
+      setAnalyticsQty(0)
+    }
+  }, [analytics])
+
+  useEffect(() => {
+    if (webHosting === 'yes') {
+      setHostQty(1)
+    } else {
+      setHostQty(0)
+    }
+  }, [webHosting])
+
+  useEffect(() => {
+    if (domainReg === 'yes') {
+      setDomainQty(1)
+    } else {
+      setDomainQty(0)
+    }
+  }, [domainReg])
+
+  useEffect(() => {
+    if (talismanWatermark === 'yes') {
+      setCreditQty(1)
+    } else {
+      setCreditQty(0)
+    }
+  }, [talismanWatermark])
 
   const handlePageQty = (event) => {
     setPageQty(event.target.value)
@@ -198,6 +191,16 @@ const FullWebsiteCalc = () => {
 
   const calculateCost = () => {
       setShowCost(true)
+      const pageRes = (pageCost * pageQty) + (1.5 * pageQty)
+      const contentRes = contentCost * contentQty
+      const blogRes = blogCost * blogQty
+      const analyticsRes = analyticsCost * analyticsQty
+      const hostRes = hostCost * hostQty
+      const domainRes = domainFee * domainQty
+      const liveChatRes = liveChatCost * livechatQty
+      const ecommerceRes = ecommerceCost * ecommerceQty
+      const ecommerceMonRes = ecommerceMonCost * ecommerceMonQty
+      const creditRes = creditDisc * creditQty
 
       if (discount !== "0 %") {
         setShowDiscount(true)
@@ -258,12 +261,12 @@ const FullWebsiteCalc = () => {
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">
+          <InputLabel id="maintenance-level">
             Level of Expected Maintainence
           </InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            labelId="maintenance-level"
+            id="maintenance-level"
             label="Level of Expected Maintainence"
             onChange={handleMaintenance}
             defaultValue={"none"}>
@@ -276,12 +279,12 @@ const FullWebsiteCalc = () => {
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">
+          <InputLabel id="content-creation">
             Content Creation?
           </InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            labelId="content-creation"
+            id="content-creation"
             label="Content Creation?"
             onChange={handleContent}
             value={contentCreation}>
@@ -292,12 +295,12 @@ const FullWebsiteCalc = () => {
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">
+          <InputLabel id="live-chat">
             Live Chat Support?
           </InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            labelId="live-chat"
+            id="live-chat"
             label="Live Chat Support?"
             onChange={handleLiveChat}
             value={liveChat}>
@@ -308,12 +311,12 @@ const FullWebsiteCalc = () => {
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">
+          <InputLabel id="ecommerce">
             E-Commerce Integration?
           </InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            labelId="ecommerce"
+            id="ecommerce"
             label="E-Commerce Integration?"
             onChange={handleEcommerce}
             value={ecommerce}>
@@ -324,10 +327,10 @@ const FullWebsiteCalc = () => {
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Blog?</InputLabel>
+          <InputLabel id="blog">Blog?</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            labelId="blog"
+            id="blog"
             label="Blog?"
             onChange={handleBLog}
             value={blog}>
@@ -338,10 +341,10 @@ const FullWebsiteCalc = () => {
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Analytics?</InputLabel>
+          <InputLabel id="analytics">Analytics?</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            labelId="analytics"
+            id="analytics"
             label="Analytics?"
             onChange={handleAnalytics}
             value={analytics}>
