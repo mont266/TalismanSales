@@ -10,18 +10,18 @@ import Button from "@mui/material/Button"
 
 const websiteCost = 450.0
 const pageCost = 8.0
+const mainLow = 10.0
+const mainMed = 15.0
+const mainHigh = 25.0
 const contentCost = 60.0
+const liveChatCost = 10.0
+const ecommerceCost = 300.0
+const ecommerceMonCost = 12.0
 const blogCost = 60.0
 const analyticsCost = 25.0
 const hostCost = 6.0
 const domainFee = 10.0
-const liveChatCost = 10.0
-const ecommerceCost = 300.0
-const ecommerceMonCost = 12.0
 const creditDisc = 10.0
-const mainLow = 10.0
-const mainMed = 15.0
-const mainHigh = 25.0
 
 const FullWebsiteCalc = () => {
   const [pageQty, setPageQty] = useState(0)
@@ -34,6 +34,16 @@ const FullWebsiteCalc = () => {
   const [ecommerceQty, setEcommerceQty] = useState(0)
   const [ecommerceMonQty, setEcommerceMonQty] = useState(0)
   const [creditQty, setCreditQty] = useState(0)
+  const [pageRes, setPageRes] = useState(0)
+  const [contentRes, setContentRes] = useState(0)
+  const [liveChatRes, setLiveChatRes] = useState(0)
+  const [ecommerceRes, setEcommerceRes] = useState(0)
+  const [ecommerceMonRes, setEcommerceMonRes] = useState(0)
+  const [blogRes, setBlogRes] = useState(0)
+  const [analyticsRes, setAnalyticsRes] = useState(0)
+  const [hostRes, setHostRes] = useState(0)
+  const [domainRes, setDomainRes] = useState(0)
+  const [creditRes, setCreditRes] = useState(0)
   const [initRes, setInitRes] = useState(0)
   const [mainRes, setMainRes] = useState(0)
   const [resMonthly, setResMonthly] = useState(0)
@@ -54,6 +64,13 @@ const FullWebsiteCalc = () => {
   const [showDiscount, setShowDiscount] = useState(false)
 
   useEffect(() => {
+    if (pageQty > 0) {
+      setPageRes((pageCost * pageQty) + (1.5 * pageQty))
+    } else {
+      setPageRes((pageCost * 0) + (1.5 * 0))
+  }}, [pageQty])
+
+  useEffect(() => {
     if (maintenance === "low") {
       setMainRes(mainLow)
     } else if (maintenance === "medium") {
@@ -68,68 +85,86 @@ const FullWebsiteCalc = () => {
   useEffect(() => {
     if (contentCreation === 'yes') {
       setContentQty(1)
+      setContentRes(contentCost * contentQty)
     } else {
       setContentQty(0)
+      setContentRes(contentCost * contentQty)
     }
-  }, [contentCreation])
+  }, [contentCreation, contentQty])
 
   useEffect(() => {
     if (liveChat === 'yes') {
       setLivechatQty(1)
+      setLiveChatRes(liveChatCost * livechatQty)
     } else {
       setLivechatQty(0)
+      setLiveChatRes(liveChatCost * livechatQty)
     }
-  }, [liveChat])
+  }, [liveChat, livechatQty])
 
   useEffect(() => {
     if (ecommerce === 'yes') {
       setEcommerceQty(1)
       setEcommerceMonQty(1)
+      setEcommerceRes(ecommerceCost * ecommerceQty)
+      setEcommerceMonRes(ecommerceMonCost * ecommerceMonQty)
     } else {
       setEcommerceQty(0)
       setEcommerceMonQty(0)
+      setEcommerceRes(ecommerceCost * ecommerceQty)
+      setEcommerceMonRes(ecommerceMonCost * ecommerceMonQty)
     }
-  }, [ecommerce])
+  }, [ecommerce, ecommerceQty, ecommerceMonQty])
 
   useEffect(() => {
     if (blog === 'yes') {
       setBlogQty(1)
+      setBlogRes(blogCost * blogQty)
     } else {
       setBlogQty(0)
+      setBlogRes(blogCost * blogQty)
     }
-  }, [blog])
+  }, [blog, blogQty])
 
   useEffect(() => {
     if (analytics === 'yes') {
       setAnalyticsQty(1)
+      setAnalyticsRes(analyticsCost * analyticsQty)
     } else {
       setAnalyticsQty(0)
+      setAnalyticsRes(analyticsCost * analyticsQty)
     }
-  }, [analytics])
+  }, [analytics, analyticsQty])
 
   useEffect(() => {
     if (webHosting === 'yes') {
       setHostQty(1)
+      setHostRes(hostCost * hostQty)
     } else {
       setHostQty(0)
+      setHostRes(hostCost * hostQty)
     }
-  }, [webHosting])
+  }, [webHosting, hostQty])
 
   useEffect(() => {
     if (domainReg === 'yes') {
       setDomainQty(1)
+      setDomainRes(domainFee * domainQty)
     } else {
       setDomainQty(0)
+      setDomainRes(domainFee * domainQty)
     }
-  }, [domainReg])
+  }, [domainReg, domainQty])
 
   useEffect(() => {
     if (talismanWatermark === 'yes') {
       setCreditQty(1)
+      setCreditRes(creditDisc * creditQty)
     } else {
       setCreditQty(0)
+      setCreditRes(creditDisc * creditQty)
     }
-  }, [talismanWatermark])
+  }, [talismanWatermark, creditQty])
 
   useEffect(() => {
     if (initRes > 0) {
@@ -183,16 +218,7 @@ const FullWebsiteCalc = () => {
 
   const calculateCost = () => {
       setShowCost(true)
-      const pageRes = (pageCost * pageQty) + (1.5 * pageQty)
-      const contentRes = contentCost * contentQty
-      const blogRes = blogCost * blogQty
-      const analyticsRes = analyticsCost * analyticsQty
-      const hostRes = hostCost * hostQty
-      const domainRes = domainFee * domainQty
-      const liveChatRes = liveChatCost * livechatQty
-      const ecommerceRes = ecommerceCost * ecommerceQty
-      const ecommerceMonRes = ecommerceMonCost * ecommerceMonQty
-      const creditRes = creditDisc * creditQty
+    
       const resMonthly = hostRes + mainRes + ecommerceMonRes
 
       if (discount !== "0 %") {
