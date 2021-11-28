@@ -56,7 +56,7 @@ export default function MobileTabs() {
     <Box sx={{ bgcolor: "background.paper", width: 500 }}>
       <AppBar position="static">
         <Tabs
-        wrapped
+          wrapped={'true'}
           value={value}
           onChange={handleChange}
           indicatorColor="secondary"
