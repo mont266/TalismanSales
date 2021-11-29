@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import Typography from '@mui/material/Typography'
 import Box from "@mui/material/Box"
 import InputLabel from "@mui/material/InputLabel"
@@ -226,36 +226,42 @@ const FullWebsiteCalc = () => {
       } else {
         setShowDiscount(false)
       }
-  
+
       if (discount === "0 %") {
-        setInitRes(initRes)
+        setInitRes(
+          websiteCost +
+            pageRes +
+            contentRes +
+            blogRes +
+            analyticsRes +
+            hostRes +
+            liveChatRes +
+            ecommerceRes +
+            domainRes -
+            creditRes
+        )
         setSavings(0)
-      } else if (discount === "5 %") {
+      }
+
+      if (discount === "5 %") {
         setInitRes(initRes * 0.95)
         setSavings(initRes * 0.05)
-      } else if (discount === "10 %") {
+      }
+
+      if (discount === "10 %") {
         setInitRes(initRes * 0.9)
         setSavings(initRes * 0.1)
-      } else if (discount === "15 %") {
+      }
+
+      if (discount === "15 %") {
         setInitRes(initRes * 0.85)
         setSavings(initRes * 0.15)
-      } else if (discount === "20 %") {
+      }
+
+      if (discount === "20 %") {
         setInitRes(initRes * 0.8)
         setSavings(initRes * 0.2)
       }
-
-      setInitRes(
-        websiteCost +
-          pageRes +
-          contentRes +
-          blogRes +
-          analyticsRes +
-          hostRes +
-          liveChatRes +
-          ecommerceRes +
-          domainRes -
-          creditRes
-      )
 
       setResMonthly(hostRes + mainRes + ecommerceMonRes)
       setResYearly(resMonthly * 12 - 12)
