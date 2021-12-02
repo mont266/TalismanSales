@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react"
-import Typography from '@mui/material/Typography'
+import React, { useEffect, useState } from "react"
+import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -22,6 +22,7 @@ const analyticsCost = 25.0
 const hostCost = 6.0
 const domainFee = 10.0
 const creditDisc = 10.0
+const cmsCost = 20.0
 
 const FullWebsiteCalc = () => {
   const [pageQty, setPageQty] = useState(0)
@@ -34,6 +35,7 @@ const FullWebsiteCalc = () => {
   const [ecommerceQty, setEcommerceQty] = useState(0)
   const [ecommerceMonQty, setEcommerceMonQty] = useState(0)
   const [creditQty, setCreditQty] = useState(0)
+  const [cmsQty, setCmsQty] = useState(0)
   const [pageRes, setPageRes] = useState(0)
   const [contentRes, setContentRes] = useState(0)
   const [liveChatRes, setLiveChatRes] = useState(0)
@@ -44,6 +46,7 @@ const FullWebsiteCalc = () => {
   const [hostRes, setHostRes] = useState(0)
   const [domainRes, setDomainRes] = useState(0)
   const [creditRes, setCreditRes] = useState(0)
+  const [cmsRes, setCmsRes] = useState(0)
   const [initRes, setInitRes] = useState(0)
   const [mainRes, setMainRes] = useState(0)
   const [resMonthly, setResMonthly] = useState(0)
@@ -54,6 +57,7 @@ const FullWebsiteCalc = () => {
   const [contentCreation, setContentCreation] = useState("no")
   const [liveChat, setLiveChat] = useState("no")
   const [ecommerce, setEcommerce] = useState("no")
+  const [cms, setCMS] = useState("no")
   const [blog, setBlog] = useState("no")
   const [analytics, setAnalytics] = useState("no")
   const [webHosting, setWebHosting] = useState("no")
@@ -65,10 +69,11 @@ const FullWebsiteCalc = () => {
 
   useEffect(() => {
     if (pageQty > 0) {
-      setPageRes((pageCost * pageQty) + (1.5 * pageQty))
+      setPageRes(pageCost * pageQty + 1.5 * pageQty)
     } else {
-      setPageRes((pageCost * 0) + (1.5 * 0))
-  }}, [pageQty])
+      setPageRes(pageCost * 0 + 1.5 * 0)
+    }
+  }, [pageQty])
 
   useEffect(() => {
     if (maintenance === "low") {
@@ -83,7 +88,7 @@ const FullWebsiteCalc = () => {
   }, [maintenance])
 
   useEffect(() => {
-    if (contentCreation === 'yes') {
+    if (contentCreation === "yes") {
       setContentQty(1)
       setContentRes(contentCost * contentQty)
     } else {
@@ -93,7 +98,7 @@ const FullWebsiteCalc = () => {
   }, [contentCreation, contentQty])
 
   useEffect(() => {
-    if (liveChat === 'yes') {
+    if (liveChat === "yes") {
       setLivechatQty(1)
       setLiveChatRes(liveChatCost * livechatQty)
     } else {
@@ -103,7 +108,7 @@ const FullWebsiteCalc = () => {
   }, [liveChat, livechatQty])
 
   useEffect(() => {
-    if (ecommerce === 'yes') {
+    if (ecommerce === "yes") {
       setEcommerceQty(1)
       setEcommerceMonQty(1)
       setEcommerceRes(ecommerceCost * ecommerceQty)
@@ -117,7 +122,17 @@ const FullWebsiteCalc = () => {
   }, [ecommerce, ecommerceQty, ecommerceMonQty])
 
   useEffect(() => {
-    if (blog === 'yes') {
+    if (cms === "yes") {
+      setCmsQty(1)
+      setCmsRes(cmsCost * cmsQty)
+    } else {
+      setCmsQty(0)
+      setCmsRes(cmsCost * cmsQty)
+    }
+  }, [cms, cmsQty])
+
+  useEffect(() => {
+    if (blog === "yes") {
       setBlogQty(1)
       setBlogRes(blogCost * blogQty)
     } else {
@@ -127,7 +142,7 @@ const FullWebsiteCalc = () => {
   }, [blog, blogQty])
 
   useEffect(() => {
-    if (analytics === 'yes') {
+    if (analytics === "yes") {
       setAnalyticsQty(1)
       setAnalyticsRes(analyticsCost * analyticsQty)
     } else {
@@ -137,7 +152,7 @@ const FullWebsiteCalc = () => {
   }, [analytics, analyticsQty])
 
   useEffect(() => {
-    if (webHosting === 'yes') {
+    if (webHosting === "yes") {
       setHostQty(1)
       setHostRes(hostCost * hostQty)
     } else {
@@ -147,7 +162,7 @@ const FullWebsiteCalc = () => {
   }, [webHosting, hostQty])
 
   useEffect(() => {
-    if (domainReg === 'yes') {
+    if (domainReg === "yes") {
       setDomainQty(1)
       setDomainRes(domainFee * domainQty)
     } else {
@@ -157,7 +172,7 @@ const FullWebsiteCalc = () => {
   }, [domainReg, domainQty])
 
   useEffect(() => {
-    if (talismanWatermark === 'yes') {
+    if (talismanWatermark === "yes") {
       setCreditQty(1)
       setCreditRes(creditDisc * creditQty)
     } else {
@@ -192,6 +207,10 @@ const FullWebsiteCalc = () => {
     setEcommerce(event.target.value)
   }
 
+  const handleCMS = (event) => {
+    setCMS(event.target.value)
+  }
+
   const handleBLog = (event) => {
     setBlog(event.target.value)
   }
@@ -217,54 +236,55 @@ const FullWebsiteCalc = () => {
   }
 
   const calculateCost = () => {
-      setShowCost(true)
-    
-      const resMonthly = hostRes + mainRes + ecommerceMonRes
+    setShowCost(true)
 
-      if (discount !== "0 %") {
-        setShowDiscount(true)
-      } else {
-        setShowDiscount(false)
-      }
+    const resMonthly = hostRes + mainRes + ecommerceMonRes
 
-      if (discount === "0 %") {
-        setInitRes(
-          websiteCost +
-            pageRes +
-            contentRes +
-            blogRes +
-            analyticsRes +
-            hostRes +
-            liveChatRes +
-            ecommerceRes +
-            domainRes -
-            creditRes
-        )
-        setSavings(0)
-      }
+    if (discount !== "0 %") {
+      setShowDiscount(true)
+    } else {
+      setShowDiscount(false)
+    }
 
-      if (discount === "5 %") {
-        setInitRes(initRes * 0.95)
-        setSavings(initRes * 0.05)
-      }
+    if (discount === "0 %") {
+      setInitRes(
+        websiteCost +
+          pageRes +
+          contentRes +
+          blogRes +
+          cmsRes +
+          analyticsRes +
+          hostRes +
+          liveChatRes +
+          ecommerceRes +
+          domainRes -
+          creditRes
+      )
+      setSavings(0)
+    }
 
-      if (discount === "10 %") {
-        setInitRes(initRes * 0.9)
-        setSavings(initRes * 0.1)
-      }
+    if (discount === "5 %") {
+      setInitRes(initRes * 0.95)
+      setSavings(initRes * 0.05)
+    }
 
-      if (discount === "15 %") {
-        setInitRes(initRes * 0.85)
-        setSavings(initRes * 0.15)
-      }
+    if (discount === "10 %") {
+      setInitRes(initRes * 0.9)
+      setSavings(initRes * 0.1)
+    }
 
-      if (discount === "20 %") {
-        setInitRes(initRes * 0.8)
-        setSavings(initRes * 0.2)
-      }
+    if (discount === "15 %") {
+      setInitRes(initRes * 0.85)
+      setSavings(initRes * 0.15)
+    }
 
-      setResMonthly(hostRes + mainRes + ecommerceMonRes)
-      setResYearly(resMonthly * 12 - 12)
+    if (discount === "20 %") {
+      setInitRes(initRes * 0.8)
+      setSavings(initRes * 0.2)
+    }
+
+    setResMonthly(hostRes + mainRes + ecommerceMonRes)
+    setResYearly(resMonthly * 12 - 12)
   }
 
   return (
@@ -303,9 +323,7 @@ const FullWebsiteCalc = () => {
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
         <FormControl fullWidth>
-          <InputLabel id="content-creation">
-            Content Creation?
-          </InputLabel>
+          <InputLabel id="content-creation">Content Creation?</InputLabel>
           <Select
             labelId="content-creation"
             id="content-creation"
@@ -319,9 +337,7 @@ const FullWebsiteCalc = () => {
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
         <FormControl fullWidth>
-          <InputLabel id="live-chat">
-            Live Chat Support?
-          </InputLabel>
+          <InputLabel id="live-chat">Live Chat Support?</InputLabel>
           <Select
             labelId="live-chat"
             id="live-chat"
@@ -335,15 +351,29 @@ const FullWebsiteCalc = () => {
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
         <FormControl fullWidth>
-          <InputLabel id="ecommerce">
-            E-Commerce Integration?
-          </InputLabel>
+          <InputLabel id="ecommerce">E-Commerce Integration?</InputLabel>
           <Select
             labelId="ecommerce"
             id="ecommerce"
             label="E-Commerce Integration?"
             onChange={handleEcommerce}
             value={ecommerce}>
+            <MenuItem value={"yes"}>Yes</MenuItem>
+            <MenuItem value={"no"}>No</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <Box sx={{ minWidth: 220, marginBottom: 1 }}>
+        <FormControl fullWidth>
+          <InputLabel id="cms">
+            CMS Required? If E-Commerce is Yes, CMS is provided already
+          </InputLabel>
+          <Select
+            labelId="cms"
+            id="cms"
+            label="CMS Required?"
+            onChange={handleCMS}
+            value={cms}>
             <MenuItem value={"yes"}>Yes</MenuItem>
             <MenuItem value={"no"}>No</MenuItem>
           </Select>
@@ -441,17 +471,17 @@ const FullWebsiteCalc = () => {
         </FormControl>
       </Box>
       {showCost ? (
-        <div style={{textAlign: 'center'}}>
-          <Typography >Full payment: £ {initRes}</Typography >
-          <Typography >
+        <div style={{ textAlign: "center" }}>
+          <Typography>Full payment: £ {initRes}</Typography>
+          <Typography>
             £ {resMonthly} Per Month £ {resYearly} Yearly
-          </Typography >
-          <Typography >Deposit: £ {deposit}</Typography >
+          </Typography>
+          <Typography>Deposit: £ {deposit}</Typography>
         </div>
       ) : null}
       {showDiscount ? (
-        <div style={{textAlign: 'center'}}>
-          <Typography >Client Saves: £ {savings} with discount</Typography >
+        <div style={{ textAlign: "center" }}>
+          <Typography>Client Saves: £ {savings} with discount</Typography>
         </div>
       ) : null}
       <Button

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
 import CssBaseline from "@mui/material/CssBaseline"
@@ -10,6 +10,11 @@ import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../../firebase/Firebase-config"
+
+import "react-toastify/dist/ReactToastify.css"
 
 const Copyright = (props) => {
   const CopyrightDate = new Date().getFullYear()
@@ -32,29 +37,59 @@ const Copyright = (props) => {
 const theme = createTheme()
 
 const Login = () => {
-    const navigate = useNavigate()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-    const emailChange = (event) => {
-        setEmail(event.target.value)
-    }
+  const emailChange = (event) => {
+    setEmail(event.target.value)
+  }
 
-    const passChange = (event) => {
-        setPassword(event.target.value)
-    }
+  const passChange = (event) => {
+    setPassword(event.target.value)
+  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-
-    if (password === 'ScottIsLegendary') {
-        navigate("/home")
-    }
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get(email),
+  const notifySuccess = () => {
+    toast.success("Login succes", {
+      position: toast.POSITION.BOTTOM_CENTER,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     })
+  }
+
+  const notifyInvalidCredentials = () => {
+    toast.error("Credentials are not valid", {
+      position: toast.POSITION.BOTTOM_CENTER,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+  }
+
+  const signIn = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password).then(
+        () => {
+          navigate("/home")
+          notifySuccess()
+        }
+      )
+      console.log(user)
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-center",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
   }
 
   return (
@@ -74,11 +109,7 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}>
+          <Box sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -86,7 +117,6 @@ const Login = () => {
               id="email"
               label="Email Address"
               name="email"
-              autoComplete="email"
               autoFocus
               onChange={emailChange}
               value={email}
@@ -99,11 +129,10 @@ const Login = () => {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
               onChange={passChange}
-              
             />
             <Button
+              onClick={signIn}
               type="submit"
               fullWidth
               variant="contained"
