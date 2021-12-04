@@ -7,6 +7,7 @@ import useWindowDimensions from "../../Hooks/ScreenDimensions"
 import MobileTabs from "../../Components/MobileTabs"
 
 import FullWebsiteCalc from "../../Components/Calculators/FullWebsiteCalc"
+import LandingPageCalc from '../../Components/Calculators/LandingPageCalc'
 
 import logo from "./biglogo.png"
 import "./Home.css"
@@ -44,6 +45,7 @@ function Home() {
       {value === "one" ? (
         <FullWebsiteCalc />
       ) : null}
+      {value === "two" ? (<LandingPageCalc />) : null}
     </div>
   )
 }

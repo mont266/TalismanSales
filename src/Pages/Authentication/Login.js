@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
 import CssBaseline from "@mui/material/CssBaseline"
@@ -11,8 +11,8 @@ import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../../firebase/Firebase-config"
+
+import { useAuth } from "../../Contexts/AuthContext"
 
 import "react-toastify/dist/ReactToastify.css"
 
@@ -37,9 +37,11 @@ const Copyright = (props) => {
 const theme = createTheme()
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigation = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  const { login } = useAuth()
 
   const emailChange = (event) => {
     setEmail(event.target.value)
@@ -60,27 +62,25 @@ const Login = () => {
     })
   }
 
-  const notifyInvalidCredentials = () => {
-    toast.error("Credentials are not valid", {
-      position: toast.POSITION.BOTTOM_CENTER,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-  }
+  // const notifyInvalidCredentials = () => {
+  //   toast.error("Credentials are not valid", {
+  //     position: toast.POSITION.BOTTOM_CENTER,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //   })
+  // }
 
   const signIn = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(auth, email, password).then(
-        () => {
-          navigate("/home")
-          notifySuccess()
-        }
-      )
-      console.log(user)
-    } catch (error) {
+    login(email, password)
+    .then(res => {
+      navigation("/home")
+      notifySuccess()
+    })
+    .catch(error => {
+      console.log(error.message)
       toast.error(error.message, {
         position: "bottom-center",
         hideProgressBar: false,
@@ -89,7 +89,25 @@ const Login = () => {
         draggable: true,
         progress: undefined,
       })
-    }
+    })
+    // try {
+    //   const user = await signInWithEmailAndPassword(auth, email, password).then(
+    //     () => {
+    //       navigate("/home")
+    //       notifySuccess()
+    //     }
+    //   )
+    //   console.log(user)
+    // } catch (error) {
+    //   toast.error(error.message, {
+    //     position: "bottom-center",
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   })
+    // }
   }
 
   return (
