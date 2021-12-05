@@ -12,7 +12,7 @@ const App = () => {
     <AuthContextProvider>
       <BrowserRouter>
         <Routes>
-        <Route path="/" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route
             path="/home"
             element={
@@ -35,7 +35,7 @@ function RequireAuth({ children }) {
   }
 
   if (currentUser === null) {
-    return <Navigate to='/' replace />
+    return <Navigate to="/" replace />
   }
 
   return null

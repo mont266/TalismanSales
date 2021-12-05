@@ -8,6 +8,11 @@ import Tab from "@mui/material/Tab"
 import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
 
+import FullWebsiteCalc from "../../Components/Calculators/FullWebsiteCalc"
+import LandingPageCalc from "../../Components/Calculators/LandingPageCalc"
+import AcommodationWebsiteCalc from "../../Components/Calculators/AcommodationWebsiteCalc"
+import SocialMediaPageCalc from "../../Components/Calculators/SocialMediaPageCalc"
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props
 
@@ -53,7 +58,7 @@ export default function MobileTabs() {
   }
 
   return (
-    <Box sx={{ bgcolor: "background.paper", width: 500 }}>
+    <Box sx={{ bgcolor: "background.paper", width: '100%' }}>
       <AppBar position="static">
         <Tabs
           wrapped={'true'}
@@ -65,7 +70,7 @@ export default function MobileTabs() {
           aria-label="full width tabs example">
           <Tab label="Full Website" {...a11yProps(0)} />
           <Tab label="Landing Page" {...a11yProps(1)} />
-          <Tab label="Accommodation Website" {...a11yProps(2)} />
+          <Tab label="Acommodation Website" {...a11yProps(2)} />
           <Tab label="Social Media Page" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
@@ -74,16 +79,16 @@ export default function MobileTabs() {
         index={value}
         onChangeIndex={handleChangeIndex}>
         <TabPanel value={value} index={0} dir={theme.direction}>
-          Full Website
+          {value === 0 ? (<FullWebsiteCalc />) : null}
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Landing Page
+        {value === 1 ? (<LandingPageCalc />) : null}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Accommodation Website
+        {value === 2 ? (<AcommodationWebsiteCalc />) : null}
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
-          Social Media Page
+        {value === 3 ? (<SocialMediaPageCalc />) : null}
         </TabPanel>
       </SwipeableViews>
     </Box>
