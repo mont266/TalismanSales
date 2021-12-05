@@ -3,8 +3,11 @@
 }
 
 .App-logo {
+  display: block;
   height: 40vmin;
   pointer-events: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .App-header {

@@ -5,7 +5,7 @@ import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
-import TextField from "@mui/material/TextField"
+import Grid from '@mui/material/Grid'
 import Button from "@mui/material/Button"
 
 const facebookCost = 25.0
@@ -68,8 +68,8 @@ const SocialMediaPageCalc = () => {
   }
 
   return (
-    <>
-      <Box sx={{ minWidth: 220, marginBottom: 1 }}>
+    <Grid container direction='column' alignItems='center' justify='center'>
+      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="facebook">Do You Need A Facebook Page?</InputLabel>
           <Select
@@ -83,7 +83,7 @@ const SocialMediaPageCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 220, marginBottom: 1 }}>
+      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="twitter">Do You Need A Twitter Page?</InputLabel>
           <Select
@@ -98,19 +98,19 @@ const SocialMediaPageCalc = () => {
         </FormControl>
       </Box>
       {showCost ? (
-        <div style={{ textAlign: "center" }}>
-          <Typography>Full payment: £ {initRes}</Typography>
+        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: 400, padding: 4 }}>
+          <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Full payment: £ {initRes}</Typography>
         </div>
       ) : null}
       <Button
+        style={{ backgroundColor: '#7df230', fontSize: 20 }}
         onClick={calculateCost}
         type="submit"
-        fullWidth
         variant="contained"
-        sx={{ mt: 3, mb: 2 }}>
+        sx={{ mt: 3, mb: 2, minWidth: 400 }}>
         Calculate
       </Button>
-    </>
+    </Grid>
   )
 }
 

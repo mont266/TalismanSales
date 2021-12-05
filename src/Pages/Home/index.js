@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import Box from "@mui/material/Box"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
+import Grid from '@mui/material/Grid'
 
 import useWindowDimensions from "../../Hooks/ScreenDimensions"
 import MobileTabs from "../../Components/MobileTabs"
@@ -24,7 +25,9 @@ function Home() {
 
   return (
     <div>
-      <img src={logo} className="App-logo" alt="logo" />
+      <Grid container direction='row' alignItems='center' justify='center'>
+        <img src={logo} className="App-logo" alt="logo" />
+      </Grid>
       {width < 500 ? (
         <MobileTabs />
       ) : (
@@ -33,8 +36,8 @@ function Home() {
             centered
             value={value}
             onChange={handleTabChange}
-            textColor="secondary"
-            indicatorColor="secondary"
+            textColor="primary"
+            indicatorColor="primary"
             aria-label="secondary tabs example">
             <Tab value="one" label="Full Website" />
             <Tab value="two" label="Landing Page" />
