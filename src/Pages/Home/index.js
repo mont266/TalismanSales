@@ -8,6 +8,8 @@ import MobileTabs from "../../Components/MobileTabs"
 
 import FullWebsiteCalc from "../../Components/Calculators/FullWebsiteCalc"
 import LandingPageCalc from '../../Components/Calculators/LandingPageCalc'
+import AcommodationWebsiteCalc from '../../Components/Calculators/AcommodationWebsiteCalc'
+import SocialMediaPageCalc from '../../Components/Calculators/SocialMediaPageCalc'
 
 import logo from "./biglogo.png"
 import "./Home.css"
@@ -46,6 +48,8 @@ function Home() {
         <FullWebsiteCalc />
       ) : null}
       {value === "two" ? (<LandingPageCalc />) : null}
+      {value === "three" ? (<AcommodationWebsiteCalc />) : null}
+      {value === "four" ? (<SocialMediaPageCalc />) : null}
     </div>
   )
 }

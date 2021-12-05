@@ -8,72 +8,114 @@ import Select from "@mui/material/Select"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
 
-const websiteCost = 450.0
-const pageCost = 8.0
-const mainLow = 10.0
-const mainMed = 15.0
-const mainHigh = 25.0
-const contentCost = 60.0
-const liveChatCost = 10.0
-const ecommerceCost = 300.0
-const ecommerceMonCost = 12.0
-const blogCost = 60.0
+const websiteCost = 800.0
 const analyticsCost = 25.0
 const hostCost = 6.0
 const domainFee = 10.0
+const liveChatCost = 10.0
 const creditDisc = 10.0
-const cmsCost = 20.0
+const mainLow = 10.0
+const mainMed = 15.0
+const mainHigh = 25.0
 
-const FullWebsiteCalc = () => {
-  const [pageQty, setPageQty] = useState(0)
-  const [contentQty, setContentQty] = useState(0)
-  const [blogQty, setBlogQty] = useState(0)
+const AcommodationWebsiteCalc = () => {
+  const [roomQty, setRoomQty] = useState(0)
   const [analyticsQty, setAnalyticsQty] = useState(0)
   const [hostQty, setHostQty] = useState(0)
   const [domainQty, setDomainQty] = useState(0)
   const [livechatQty, setLivechatQty] = useState(0)
-  const [ecommerceQty, setEcommerceQty] = useState(0)
-  const [ecommerceMonQty, setEcommerceMonQty] = useState(0)
   const [creditQty, setCreditQty] = useState(0)
-  const [cmsQty, setCmsQty] = useState(0)
-  const [pageRes, setPageRes] = useState(0)
-  const [contentRes, setContentRes] = useState(0)
-  const [liveChatRes, setLiveChatRes] = useState(0)
-  const [ecommerceRes, setEcommerceRes] = useState(0)
-  const [ecommerceMonRes, setEcommerceMonRes] = useState(0)
-  const [blogRes, setBlogRes] = useState(0)
+  const [roomRes, setRoomRes] = useState(0)
   const [analyticsRes, setAnalyticsRes] = useState(0)
   const [hostRes, setHostRes] = useState(0)
   const [domainRes, setDomainRes] = useState(0)
+  const [liveChatRes, setLiveChatRes] = useState(0)
   const [creditRes, setCreditRes] = useState(0)
-  const [cmsRes, setCmsRes] = useState(0)
-  const [initRes, setInitRes] = useState(0)
   const [mainRes, setMainRes] = useState(0)
+  const [initRes, setInitRes] = useState(0)
   const [resMonthly, setResMonthly] = useState(0)
   const [resYearly, setResYearly] = useState(0)
   const [deposit, setDeposit] = useState(0)
   const [savings, setSavings] = useState(0)
+
   const [maintenance, setMaintenance] = useState("none")
-  const [contentCreation, setContentCreation] = useState("no")
+  const [booking, setBooking] = useState("no")
   const [liveChat, setLiveChat] = useState("no")
-  const [ecommerce, setEcommerce] = useState("no")
-  const [cms, setCMS] = useState("no")
-  const [blog, setBlog] = useState("no")
   const [analytics, setAnalytics] = useState("no")
   const [webHosting, setWebHosting] = useState("no")
   const [domainReg, setDomainReg] = useState("no")
   const [talismanWatermark, setTalismanWatermark] = useState("no")
   const [discount, setDiscount] = useState("0 %")
+  const [pro, setPro] = useState(false)
   const [showCost, setShowCost] = useState(false)
   const [showDiscount, setShowDiscount] = useState(false)
 
   useEffect(() => {
-    if (pageQty > 0) {
-      setPageRes(pageCost * pageQty + 1.5 * pageQty)
-    } else {
-      setPageRes(pageCost * 0 + 1.5 * 0)
+    // 1-2 rooms
+    if (roomQty < 3) {
+      if (pro === true) {
+        setRoomRes(25.0)
+      } else {
+        setRoomRes(7.0)
+      }
     }
-  }, [pageQty])
+    // 3-5 rooms
+    if (roomQty > 2 && roomQty < 6) {
+        if (pro === true) {
+            setRoomRes(35.0)
+        } else {
+            setRoomRes(12.0)
+        }
+    }
+    // 6-10 rooms
+    if (roomQty > 5 && roomQty < 11) {
+        if (pro === true) {
+            setRoomRes(50.0)
+        } else {
+            setRoomRes(15.0)
+        }
+    }
+    // 11-20 rooms
+    if (roomQty > 10 && roomQty < 21) {
+        if (pro === true) {
+            setRoomRes(65.0)
+        } else {
+            setRoomRes(19.0)
+        }
+    }
+    // 21-50 rooms
+    if (roomQty > 20 && roomQty < 51) {
+        if (pro === true) {
+            setRoomRes(79.0)
+        } else {
+            setRoomRes(25.0)
+        }
+    }
+    // 50-100 rooms
+    if (roomQty > 50 && roomQty < 101) {
+        if (pro === true) {
+            setRoomRes(99.0)
+        } else {
+            setRoomRes(35.0)
+        }
+    }
+    // 100+ rooms
+    if (roomQty > 100) {
+        if (pro === true) {
+            setRoomRes(119.0)
+        } else {
+            setRoomRes(45.0)
+        }
+    }
+  }, [roomQty, pro])
+
+  useEffect(() => {
+    if (booking === "yes") {
+      setPro(true)
+    } else {
+      setPro(false)
+    }
+  }, [booking])
 
   useEffect(() => {
     if (maintenance === "low") {
@@ -88,16 +130,6 @@ const FullWebsiteCalc = () => {
   }, [maintenance])
 
   useEffect(() => {
-    if (contentCreation === "yes") {
-      setContentQty(1)
-      setContentRes(contentCost * contentQty)
-    } else {
-      setContentQty(0)
-      setContentRes(contentCost * contentQty)
-    }
-  }, [contentCreation, contentQty])
-
-  useEffect(() => {
     if (liveChat === "yes") {
       setLivechatQty(1)
       setLiveChatRes(liveChatCost * livechatQty)
@@ -106,40 +138,6 @@ const FullWebsiteCalc = () => {
       setLiveChatRes(liveChatCost * livechatQty)
     }
   }, [liveChat, livechatQty])
-
-  useEffect(() => {
-    if (ecommerce === "yes") {
-      setEcommerceQty(1)
-      setEcommerceMonQty(1)
-      setEcommerceRes(ecommerceCost * ecommerceQty)
-      setEcommerceMonRes(ecommerceMonCost * ecommerceMonQty)
-    } else {
-      setEcommerceQty(0)
-      setEcommerceMonQty(0)
-      setEcommerceRes(ecommerceCost * ecommerceQty)
-      setEcommerceMonRes(ecommerceMonCost * ecommerceMonQty)
-    }
-  }, [ecommerce, ecommerceQty, ecommerceMonQty])
-
-  useEffect(() => {
-    if (cms === "yes") {
-      setCmsQty(1)
-      setCmsRes(cmsCost * cmsQty)
-    } else {
-      setCmsQty(0)
-      setCmsRes(cmsCost * cmsQty)
-    }
-  }, [cms, cmsQty])
-
-  useEffect(() => {
-    if (blog === "yes") {
-      setBlogQty(1)
-      setBlogRes(blogCost * blogQty)
-    } else {
-      setBlogQty(0)
-      setBlogRes(blogCost * blogQty)
-    }
-  }, [blog, blogQty])
 
   useEffect(() => {
     if (analytics === "yes") {
@@ -187,32 +185,20 @@ const FullWebsiteCalc = () => {
     }
   }, [initRes])
 
-  const handlePageQty = (event) => {
-    setPageQty(event.target.value)
+  const handleRoomQty = (event) => {
+    setRoomQty(event.target.value)
+  }
+
+  const handleBooking = (event) => {
+    setBooking(event.target.value)
   }
 
   const handleMaintenance = (event) => {
     setMaintenance(event.target.value)
   }
 
-  const handleContent = (event) => {
-    setContentCreation(event.target.value)
-  }
-
   const handleLiveChat = (event) => {
     setLiveChat(event.target.value)
-  }
-
-  const handleEcommerce = (event) => {
-    setEcommerce(event.target.value)
-  }
-
-  const handleCMS = (event) => {
-    setCMS(event.target.value)
-  }
-
-  const handleBLog = (event) => {
-    setBlog(event.target.value)
   }
 
   const handleAnalytics = (event) => {
@@ -238,7 +224,7 @@ const FullWebsiteCalc = () => {
   const calculateCost = () => {
     setShowCost(true)
 
-    const resMonthly = hostRes + mainRes + ecommerceMonRes
+    const resMonthly = hostRes + mainRes + roomRes
 
     if (discount !== "0 %") {
       setShowDiscount(true)
@@ -252,14 +238,10 @@ const FullWebsiteCalc = () => {
 
     setInitRes(
       websiteCost +
-        pageRes +
-        contentRes +
-        blogRes +
-        cmsRes +
+        roomRes +
         analyticsRes +
         hostRes +
         liveChatRes +
-        ecommerceRes +
         domainRes -
         creditRes
     )
@@ -284,7 +266,7 @@ const FullWebsiteCalc = () => {
       setSavings(initRes * 0.2)
     }
 
-    setResMonthly(hostRes + mainRes + ecommerceMonRes)
+    setResMonthly(hostRes + mainRes + roomRes)
     setResYearly(resMonthly * 12 - 12)
   }
 
@@ -297,11 +279,25 @@ const FullWebsiteCalc = () => {
             margin="normal"
             fullWidth
             id="pagesQT"
-            label="How Many Web Pages?"
+            label="How Many Rooms?"
             name="pagesQty"
             autoFocus
-            onChange={handlePageQty}
+            onChange={handleRoomQty}
           />
+        </FormControl>
+      </Box>
+      <Box sx={{ minWidth: 220, marginBottom: 1 }}>
+        <FormControl fullWidth>
+          <InputLabel id="booking">Booking.com Support?</InputLabel>
+          <Select
+            labelId="booking"
+            id="booking"
+            label="Booking.com Support?"
+            onChange={handleBooking}
+            value={booking}>
+            <MenuItem value={"yes"}>Yes</MenuItem>
+            <MenuItem value={"no"}>No</MenuItem>
+          </Select>
         </FormControl>
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
@@ -324,20 +320,6 @@ const FullWebsiteCalc = () => {
       </Box>
       <Box sx={{ minWidth: 220, marginBottom: 1 }}>
         <FormControl fullWidth>
-          <InputLabel id="stock-images">Stock images?</InputLabel>
-          <Select
-            labelId="stock-images"
-            id="stock-images"
-            label="Stock images?"
-            onChange={handleContent}
-            value={contentCreation}>
-            <MenuItem value={"yes"}>Yes</MenuItem>
-            <MenuItem value={"no"}>No</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <Box sx={{ minWidth: 220, marginBottom: 1 }}>
-        <FormControl fullWidth>
           <InputLabel id="live-chat">Live Chat Support?</InputLabel>
           <Select
             labelId="live-chat"
@@ -345,50 +327,6 @@ const FullWebsiteCalc = () => {
             label="Live Chat Support?"
             onChange={handleLiveChat}
             value={liveChat}>
-            <MenuItem value={"yes"}>Yes</MenuItem>
-            <MenuItem value={"no"}>No</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <Box sx={{ minWidth: 220, marginBottom: 1 }}>
-        <FormControl fullWidth>
-          <InputLabel id="ecommerce">E-Commerce Integration?</InputLabel>
-          <Select
-            labelId="ecommerce"
-            id="ecommerce"
-            label="E-Commerce Integration?"
-            onChange={handleEcommerce}
-            value={ecommerce}>
-            <MenuItem value={"yes"}>Yes</MenuItem>
-            <MenuItem value={"no"}>No</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <Box sx={{ minWidth: 220, marginBottom: 1 }}>
-        <FormControl fullWidth>
-          <InputLabel id="cms">
-            CMS Required? If E-Commerce is Yes, CMS is provided already
-          </InputLabel>
-          <Select
-            labelId="cms"
-            id="cms"
-            label="CMS Required?"
-            onChange={handleCMS}
-            value={cms}>
-            <MenuItem value={"yes"}>Yes</MenuItem>
-            <MenuItem value={"no"}>No</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <Box sx={{ minWidth: 220, marginBottom: 1 }}>
-        <FormControl fullWidth>
-          <InputLabel id="blog">Blog?</InputLabel>
-          <Select
-            labelId="blog"
-            id="blog"
-            label="Blog?"
-            onChange={handleBLog}
-            value={blog}>
             <MenuItem value={"yes"}>Yes</MenuItem>
             <MenuItem value={"no"}>No</MenuItem>
           </Select>
@@ -497,4 +435,4 @@ const FullWebsiteCalc = () => {
   )
 }
 
-export default FullWebsiteCalc
+export default AcommodationWebsiteCalc
