@@ -423,7 +423,7 @@ const AcommodationWebsiteCalc = () => {
         </FormControl>
       </Box>
       {showCost ? (
-        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: formWidth, padding: 4 }}>
+        <div style={{ textAlign: "center", backgroundColor: '#FF3947', minWidth: formWidth, padding: 4 }}>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Full payment: £ {initRes}</Typography>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
             £ {resMonthly} Per Month Or £ {resYearly} Yearly
@@ -432,12 +432,12 @@ const AcommodationWebsiteCalc = () => {
         </div>
       ) : null}
       {showDiscount ? (
-        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: formWidth, padding: 4 }}>
+        <div style={{ textAlign: "center", backgroundColor: '#FF3947', minWidth: formWidth, padding: 4 }}>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Client Saves: £ {savings} with discount</Typography>
         </div>
       ) : null}
       <Button
-        style={{ backgroundColor: '#7df230', fontSize: 20 }}
+        style={{ backgroundColor: '#FF3947', fontSize: 20 }}
         onClick={calculateCost}
         type="submit"
         variant="contained"

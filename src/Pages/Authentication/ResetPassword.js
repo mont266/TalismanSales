@@ -99,6 +99,15 @@ const ResetPassword = () => {
               sx={{ mt: 3, mb: 2 }}>
               Reset Password
             </Button>
+            <Button
+              style={{ backgroundColor: "#FF3947", fontSize: 20 }}
+              onClick={() => navigation('/home')}
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}>
+              Back
+            </Button>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

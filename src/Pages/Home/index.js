@@ -3,6 +3,8 @@ import Box from "@mui/material/Box"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
+
 import { useNavigate } from "react-router-dom"
 
 import { useAuth } from "../../Contexts/AuthContext"
@@ -24,10 +26,22 @@ function Home() {
   const { logout } = useAuth()
   const [value, setValue] = useState("one")
   const [authValue, setAuthValue] = useState("")
+  const [mainTitle, setMainTitle] = useState('')
+  const [subTitle, setSubTitle] = useState('')
 
   useEffect(() => {
     if (width < 500) {
       setValue("")
+    }
+  }, [width])
+
+  useEffect(() => {
+    if (width < 500) {
+      setMainTitle('h4')
+      setSubTitle('h6')
+    } else {
+      setMainTitle('h3')
+      setSubTitle('h5')
     }
   }, [width])
 
@@ -49,6 +63,12 @@ function Home() {
       <Grid container direction="row" alignItems="center" justify="center">
         <img src={logo} className="App-logo" alt="logo" />
       </Grid>
+      <Typography textAlign='center' fontWeight='bold' component="h1" variant={mainTitle}>
+            Talisman Sales
+          </Typography>
+          <Typography textAlign='center' fontWeight='bold' component="h1" variant={subTitle}>
+            Quote Calculator
+          </Typography>
       {width < 500 ? (
         <MobileTabs />
       ) : (
@@ -75,7 +95,6 @@ function Home() {
             <Tab value="two" label="Landing Page" />
             <Tab value="three" label="Acommodation Website" />
             <Tab value="four" label="Social Media Page" />
-            <Tab value="five" label="Logout" onClick={signOut} />
           </Tabs>
         </Box>
         </>
