@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Button from "@mui/material/Button"
 import CssBaseline from "@mui/material/CssBaseline"
 import TextField from "@mui/material/TextField"
@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 
 import { useAuth } from "../../Contexts/AuthContext"
+import useWindowDimensions from "../../Hooks/ScreenDimensions"
+
 import logo from "../Home/biglogo.png"
 import "../Home/Home.css"
 import "react-toastify/dist/ReactToastify.css"
@@ -41,6 +43,19 @@ const Login = () => {
   const navigation = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [mainTitle, setMainTitle] = useState('')
+  const [subTitle, setSubTitle] = useState('')
+  const { width } = useWindowDimensions()
+
+  useEffect(() => {
+    if (width < 500) {
+      setMainTitle('h4')
+      setSubTitle('h6')
+    } else {
+      setMainTitle('h3')
+      setSubTitle('h5')
+    }
+  }, [width])
 
   const { login } = useAuth()
 
@@ -107,10 +122,10 @@ const Login = () => {
           <Grid container direction="row" alignItems="center" justify="center">
             <img src={logo} className="App-logo" alt="logo" />
           </Grid>
-          <Typography fontWeight='bold' component="h1" variant="h3">
+          <Typography fontWeight='bold' component="h1" variant={mainTitle}>
             Talisman Sales
           </Typography>
-          <Typography fontWeight='bold' component="h1" variant="h5">
+          <Typography fontWeight='bold' component="h1" variant={subTitle}>
             A Talisman Webs Platform
           </Typography>
           <Box sx={{ mt: 1 }}>
