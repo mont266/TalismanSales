@@ -4,12 +4,14 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  confirmPasswordReset
 } from "firebase/auth"
 
 const AuthContext = createContext({
   currentUser: null,
   login: () => Promise,
   logout: () => Promise,
+  resetPassword: () => Promise
 })
 
 export const useAuth = () => useContext(AuthContext)
@@ -34,10 +36,15 @@ export default function AuthContextProvider({ children }) {
     return signOut(auth)
   }
 
+  function resetPassword(oobCode, newPassword) {
+    return confirmPasswordReset(auth, oobCode, newPassword)
+  }
+
   const value = {
     currentUser,
     login,
     logout,
+    resetPassword
   }
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

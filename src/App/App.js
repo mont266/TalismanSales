@@ -5,6 +5,7 @@ import AuthContextProvider from "../Contexts/AuthContext"
 import { useAuth } from "../Contexts/AuthContext"
 
 import Login from "../Pages/Authentication/Login"
+import ResetPassword from "../Pages/Authentication/ResetPassword"
 import Home from "../Pages/Home"
 
 const App = () => {
@@ -18,6 +19,14 @@ const App = () => {
             element={
               <RequireAuth>
                 <Home />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/resetPassword"
+            element={
+              <RequireAuth>
+                <ResetPassword />
               </RequireAuth>
             }
           />

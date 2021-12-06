@@ -23,16 +23,21 @@ function Home() {
   const navigation = useNavigate()
   const { logout } = useAuth()
   const [value, setValue] = useState("one")
+  const [authValue, setAuthValue] = useState("")
 
   useEffect(() => {
     if (width < 500) {
       setValue("")
     }
-  }, [])
+  }, [width])
 
   const signOut = () => {
     logout()
     navigation('/')
+  }
+
+  const handleAuthTabChange = (event, newAuthValue) => {
+    setAuthValue(newAuthValue)
   }
 
   const handleTabChange = (event, newValue) => {
@@ -47,6 +52,17 @@ function Home() {
       {width < 500 ? (
         <MobileTabs />
       ) : (
+        <>
+        <Box sx={{ width: "100%", marginBottom: 5 }}>
+          <Tabs
+            centered
+            value={authValue}
+            onChange={handleAuthTabChange}
+            aria-label="secondary tabs example">
+            <Tab style={{color: '#333', fontWeight: 'bolder'}} value="resetPass" label="Reset Password" onClick={() => navigation('/resetPassword')} />
+            <Tab style={{color: '#FF3947', fontWeight: 'bolder'}} value="logout" label="Logout" onClick={signOut} />
+          </Tabs>
+        </Box>
         <Box sx={{ width: "100%", marginBottom: 5 }}>
           <Tabs
             centered
@@ -62,6 +78,7 @@ function Home() {
             <Tab value="five" label="Logout" onClick={signOut} />
           </Tabs>
         </Box>
+        </>
       )}
 
       {value === "one" ? <FullWebsiteCalc /> : null}

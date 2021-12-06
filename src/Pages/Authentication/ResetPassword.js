@@ -7,14 +7,14 @@ import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
-
 import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { toast } from "react-toastify"
-
-import { useAuth } from "../../Contexts/AuthContext"
 import logo from "../Home/biglogo.png"
 import "../Home/Home.css"
+
+import { useAuth } from "../../Contexts/AuthContext"
+
 import "react-toastify/dist/ReactToastify.css"
 
 const Copyright = (props) => {
@@ -37,60 +37,29 @@ const Copyright = (props) => {
 
 const theme = createTheme()
 
-const Login = () => {
+function useQuery() {
+  const location = useLocation()
+  return new URLSearchParams(location.search)
+}
+
+const ResetPassword = () => {
   const navigation = useNavigate()
-  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const { login } = useAuth()
-
-  const emailChange = (event) => {
-    setEmail(event.target.value)
-  }
+  const { resetPassword } = useAuth()
+  const query = useQuery()
 
   const passChange = (event) => {
     setPassword(event.target.value)
   }
 
-  const notifySuccess = () => {
-    toast.success("Login succes", {
-      position: toast.POSITION.BOTTOM_CENTER,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-  }
-
-  // const notifyInvalidCredentials = () => {
-  //   toast.error("Credentials are not valid", {
-  //     position: toast.POSITION.BOTTOM_CENTER,
-  //     hideProgressBar: false,
-  //     closeOnClick: true,
-  //     pauseOnHover: true,
-  //     draggable: true,
-  //     progress: undefined,
-  //   })
-  // }
-
-  const signIn = async () => {
-    login(email, password)
+  const signIn = () => {
+    resetPassword(query.get("oobCode"), password)
       .then((res) => {
-        navigation("/home")
-        notifySuccess()
+        console.log(res)
+        navigation("/")
       })
-      .catch((error) => {
-        console.log(error.message)
-        toast.error(error.message, {
-          position: "bottom-center",
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-      })
+      .catch((error) => console.log(error.message))
   }
 
   return (
@@ -107,24 +76,10 @@ const Login = () => {
           <Grid container direction="row" alignItems="center" justify="center">
             <img src={logo} className="App-logo" alt="logo" />
           </Grid>
-          <Typography fontWeight='bold' component="h1" variant="h3">
-            Talisman Sales
-          </Typography>
-          <Typography fontWeight='bold' component="h1" variant="h5">
-            A Talisman Webs Platform
+          <Typography component="h1" variant="h5">
+            Reset Password
           </Typography>
           <Box sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoFocus
-              onChange={emailChange}
-              value={email}
-            />
             <TextField
               margin="normal"
               required
@@ -142,7 +97,7 @@ const Login = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}>
-              Sign In
+              Reset Password
             </Button>
           </Box>
         </Box>
@@ -152,4 +107,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default ResetPassword

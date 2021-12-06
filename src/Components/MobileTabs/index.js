@@ -1,96 +1,80 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
-import SwipeableViews from "react-swipeable-views"
-import { useTheme } from "@mui/material/styles"
-import AppBar from "@mui/material/AppBar"
+import Button from "@mui/material/Button"
+import ButtonGroup from "@mui/material/ButtonGroup"
+import Box from "@mui/material/Box"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
-import Typography from "@mui/material/Typography"
-import Box from "@mui/material/Box"
+import { useNavigate } from "react-router-dom"
 
+import { useAuth } from "../../Contexts/AuthContext"
 import FullWebsiteCalc from "../../Components/Calculators/FullWebsiteCalc"
 import LandingPageCalc from "../../Components/Calculators/LandingPageCalc"
 import AcommodationWebsiteCalc from "../../Components/Calculators/AcommodationWebsiteCalc"
 import SocialMediaPageCalc from "../../Components/Calculators/SocialMediaPageCalc"
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}>
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  )
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-}
-
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  }
-}
-
 export default function MobileTabs() {
-  const theme = useTheme()
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState("")
+  const [authValue, setAuthValue] = useState("")
+  const navigation = useNavigate()
+  const { logout } = useAuth()
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
+  const handleAuthTabChange = (event, newAuthValue) => {
+    setAuthValue(newAuthValue)
   }
 
-  const handleChangeIndex = (index) => {
-    setValue(index)
+  const signOut = () => {
+    logout()
+    navigation('/')
   }
 
   return (
-    <Box sx={{ bgcolor: "background.paper", width: '100%' }}>
-      <AppBar position="static">
-        <Tabs
-          wrapped={'true'}
-          value={value}
-          onChange={handleChange}
-          indicatorColor="secondary"
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="full width tabs example">
-          <Tab label="Full Website" {...a11yProps(0)} />
-          <Tab label="Landing Page" {...a11yProps(1)} />
-          <Tab label="Acommodation Website" {...a11yProps(2)} />
-          <Tab label="Social Media Page" {...a11yProps(3)} />
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
-        onChangeIndex={handleChangeIndex}>
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          {value === 0 ? (<FullWebsiteCalc />) : null}
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-        {value === 1 ? (<LandingPageCalc />) : null}
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-        {value === 2 ? (<AcommodationWebsiteCalc />) : null}
-        </TabPanel>
-        <TabPanel value={value} index={3} dir={theme.direction}>
-        {value === 3 ? (<SocialMediaPageCalc />) : null}
-        </TabPanel>
-      </SwipeableViews>
-    </Box>
+    <>
+      <Box sx={{ width: "100%", marginBottom: 1 }}>
+          <Tabs
+            centered
+            value={authValue}
+            onChange={handleAuthTabChange}
+            aria-label="secondary tabs example">
+            <Tab style={{color: '#333', fontWeight: 'bolder'}} value="resetPass" label="Reset Password" onClick={() => navigation('/resetPassword')} />
+            <Tab style={{color: '#FF3947', fontWeight: 'bolder'}} value="logout" label="Logout" onClick={signOut} />
+          </Tabs>
+        </Box>
+      <ButtonGroup
+        style={{ marginTop: 1 }}
+        fullWidth
+        variant="contained"
+        aria-label="medium outline primary button group">
+        <Button
+          style={{ borderRadius: 0, height: 60 }}
+          onClick={() => setValue("Full Website")}>
+          Full Website
+        </Button>
+        <Button
+          style={{ borderRadius: 0, height: 60 }}
+          onClick={() => setValue("Landing Page")}>
+          Landing Page
+        </Button>
+      </ButtonGroup>
+      <ButtonGroup
+        style={{ marginBottom: 25 }}
+        fullWidth
+        variant="contained"
+        aria-label="medium outline primary button group">
+        <Button
+          style={{ borderRadius: 0, height: 60 }}
+          onClick={() => setValue("Acommodation Website")}>
+          Acommodation Website
+        </Button>
+        <Button
+          style={{ borderRadius: 0, height: 60 }}
+          onClick={() => setValue("Social Media Page")}>
+          Social Media Page
+        </Button>
+      </ButtonGroup>
+      {value === "Full Website" ? <FullWebsiteCalc /> : null}
+      {value === "Landing Page" ? <LandingPageCalc /> : null}
+      {value === "Acommodation Website" ? <AcommodationWebsiteCalc /> : null}
+      {value === "Social Media Page" ? <SocialMediaPageCalc /> : null}
+    </>
   )
 }

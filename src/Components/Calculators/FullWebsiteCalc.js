@@ -8,6 +8,7 @@ import Select from "@mui/material/Select"
 import TextField from "@mui/material/TextField"
 import Grid from '@mui/material/Grid'
 import Button from "@mui/material/Button"
+import useWindowDimensions from "../../Hooks/ScreenDimensions"
 
 const websiteCost = 450.0
 const pageCost = 8.0
@@ -26,6 +27,8 @@ const creditDisc = 10.0
 const cmsCost = 20.0
 
 const FullWebsiteCalc = () => {
+  const { width } = useWindowDimensions()
+
   const [pageQty, setPageQty] = useState(0)
   const [contentQty, setContentQty] = useState(0)
   const [blogQty, setBlogQty] = useState(0)
@@ -67,6 +70,15 @@ const FullWebsiteCalc = () => {
   const [discount, setDiscount] = useState("0 %")
   const [showCost, setShowCost] = useState(false)
   const [showDiscount, setShowDiscount] = useState(false)
+  const [formWidth, setFormWidth] = useState(0)
+
+  useEffect(() => {
+    if (width < 500) {
+      setFormWidth(350)
+    } else {
+      setFormWidth(600)
+    }
+  }, [width])
 
   useEffect(() => {
     if (pageQty > 0) {
@@ -291,7 +303,7 @@ const FullWebsiteCalc = () => {
 
   return (
     <Grid container direction='column' alignItems='center' justify='center'>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <TextField
             fullWidth
@@ -305,7 +317,7 @@ const FullWebsiteCalc = () => {
           />
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="maintenance-level">
             Level of Expected Maintainence
@@ -323,7 +335,7 @@ const FullWebsiteCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="stock-images">Stock images?</InputLabel>
           <Select
@@ -337,7 +349,7 @@ const FullWebsiteCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="live-chat">Live Chat Support?</InputLabel>
           <Select
@@ -351,7 +363,7 @@ const FullWebsiteCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="ecommerce">E-Commerce Integration?</InputLabel>
           <Select
@@ -365,8 +377,8 @@ const FullWebsiteCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Typography sx={{ minWidth: 400, marginBottom: 3 }}>If E-Commerce is Yes, CMS is provided already</Typography>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Typography sx={{ minWidth: formWidth, marginBottom: 3 }}>If E-Commerce is Yes, CMS is provided already</Typography>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="cms">
             CMS Required?
@@ -382,7 +394,7 @@ const FullWebsiteCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="blog">Blog?</InputLabel>
           <Select
@@ -396,7 +408,7 @@ const FullWebsiteCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="analytics">Analytics?</InputLabel>
           <Select
@@ -410,7 +422,7 @@ const FullWebsiteCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Web Hosting?</InputLabel>
           <Select
@@ -424,7 +436,7 @@ const FullWebsiteCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
             Domain Registration?
@@ -440,7 +452,7 @@ const FullWebsiteCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
             Talisman Webs Watermark?
@@ -456,7 +468,7 @@ const FullWebsiteCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Discount</InputLabel>
           <Select
@@ -474,16 +486,16 @@ const FullWebsiteCalc = () => {
         </FormControl>
       </Box>
       {showCost ? (
-        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: 400, padding: 4 }}>
+        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: formWidth, padding: 4 }}>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Full payment: £ {initRes}</Typography>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
-            £ {resMonthly} Per Month £ {resYearly} Yearly
+            £ {resMonthly} Per Month £ Or {resYearly} Yearly
           </Typography>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Deposit: £ {deposit}</Typography>
         </div>
       ) : null}
       {showDiscount ? (
-        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: 400, padding: 4 }}>
+        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: formWidth, padding: 4 }}>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Client Saves: £ {savings} with discount</Typography>
         </div>
       ) : null}
@@ -492,7 +504,7 @@ const FullWebsiteCalc = () => {
         onClick={calculateCost}
         type="submit"
         variant="contained"
-        sx={{ mt: 3, mb: 2, minWidth: 400 }}>
+        sx={{ mt: 3, mb: 2, minWidth: formWidth }}>
         Calculate
       </Button>
     </Grid>

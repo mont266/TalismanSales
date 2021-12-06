@@ -7,6 +7,7 @@ import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import Grid from '@mui/material/Grid'
 import Button from "@mui/material/Button"
+import useWindowDimensions from "../../Hooks/ScreenDimensions"
 
 const websiteCost = 250.0
 const analyticsCost = 25.0
@@ -20,6 +21,8 @@ const mainMed = 10.0
 const mainHigh = 15.0
 
 const LandingPageCalc = () => {
+  const { width } = useWindowDimensions()
+
   const [analyticsQty, setAnalyticsQty] = useState(0)
   const [hostQty, setHostQty] = useState(0)
   const [domainQty, setDomainQty] = useState(0)
@@ -48,6 +51,15 @@ const LandingPageCalc = () => {
   const [discount, setDiscount] = useState("0 %")
   const [showCost, setShowCost] = useState(false)
   const [showDiscount, setShowDiscount] = useState(false)
+  const [formWidth, setFormWidth] = useState(0)
+
+  useEffect(() => {
+    if (width < 500) {
+      setFormWidth(350)
+    } else {
+      setFormWidth(600)
+    }
+  }, [width])
 
   useEffect(() => {
     if (maintenance === "low") {
@@ -210,7 +222,7 @@ const LandingPageCalc = () => {
 
   return (
     <Grid container direction='column' alignItems='center' justify='center'>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="maintenance-level">
             Level of Expected Maintainence
@@ -228,7 +240,7 @@ const LandingPageCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="live-chat">Live Chat Support?</InputLabel>
           <Select
@@ -242,7 +254,7 @@ const LandingPageCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="analytics">Analytics?</InputLabel>
           <Select
@@ -256,7 +268,7 @@ const LandingPageCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="cms">
             CMS Required?
@@ -272,7 +284,7 @@ const LandingPageCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Web Hosting?</InputLabel>
           <Select
@@ -286,7 +298,7 @@ const LandingPageCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
             Domain Registration?
@@ -302,7 +314,7 @@ const LandingPageCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
             Talisman Webs Watermark?
@@ -318,7 +330,7 @@ const LandingPageCalc = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ minWidth: 400, marginBottom: 3 }}>
+      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Discount</InputLabel>
           <Select
@@ -336,16 +348,16 @@ const LandingPageCalc = () => {
         </FormControl>
       </Box>
       {showCost ? (
-        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: 400, padding: 4 }}>
+        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: formWidth, padding: 4 }}>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Full payment: £ {initRes}</Typography>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
-            £ {resMonthly} Per Month £ {resYearly} Yearly
+            £ {resMonthly} Per Month Or £ {resYearly} Yearly
           </Typography>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Deposit: £ {deposit}</Typography>
         </div>
       ) : null}
       {showDiscount ? (
-        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: 400, padding: 4 }}>
+        <div style={{ textAlign: "center", backgroundColor: '#7df230', minWidth: formWidth, padding: 4 }}>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Client Saves: £ {savings} with discount</Typography>
         </div>
       ) : null}
@@ -354,7 +366,7 @@ const LandingPageCalc = () => {
         onClick={calculateCost}
         type="submit"
         variant="contained"
-        sx={{ mt: 3, mb: 2, minWidth: 400 }}>
+        sx={{ mt: 3, mb: 2, minWidth: formWidth }}>
         Calculate
       </Button>
     </Grid>
