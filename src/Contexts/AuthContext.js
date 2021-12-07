@@ -36,8 +36,8 @@ export default function AuthContextProvider({ children }) {
     return signOut(auth)
   }
 
-  function resetPassword(oobCode, newPassword) {
-    return confirmPasswordReset(auth, oobCode, newPassword)
+  function resetPassword(oobCode, password) {
+    return confirmPasswordReset(auth, oobCode, password)
   }
 
   const value = {
