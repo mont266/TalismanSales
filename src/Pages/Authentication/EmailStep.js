@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import Button from "@mui/material/Button"
 import CssBaseline from "@mui/material/CssBaseline"
 import TextField from "@mui/material/TextField"
@@ -7,16 +7,13 @@ import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
-
 import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
-
-import { useAuth } from "../../Contexts/AuthContext"
-import useWindowDimensions from "../../Hooks/ScreenDimensions"
-
 import logo from "../Home/biglogo.png"
 import "../Home/Home.css"
+
+import { useAuth } from "../../Contexts/AuthContext"
+
 import "react-toastify/dist/ReactToastify.css"
 
 const Copyright = (props) => {
@@ -39,45 +36,25 @@ const Copyright = (props) => {
 
 const theme = createTheme()
 
-const Login = () => {
-  const navigation = useNavigate()
+const EmailStep = () => {
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [mainTitle, setMainTitle] = useState('')
-  const [subTitle, setSubTitle] = useState('')
-  const { width } = useWindowDimensions()
+
+  const { forgotPassword, currentUser } = useAuth()
+
+  const checkEmailToast = () =>
+    toast.success("Please check your email for password change.")
 
   useEffect(() => {
-    if (width < 500) {
-      setMainTitle('h4')
-      setSubTitle('h6')
-    } else {
-      setMainTitle('h3')
-      setSubTitle('h5')
+    setEmail(currentUser.email)
+  }, [currentUser.email])
+
+  const continueToPassReset = async () => {
+    try {
+      forgotPassword(email)
+      checkEmailToast()
+    } catch (e) {
+      toast.error(e.message)
     }
-  }, [width])
-
-  const { login } = useAuth()
-
-  const emailChange = (event) => {
-    setEmail(event.target.value)
-  }
-
-  const passChange = (event) => {
-    setPassword(event.target.value)
-  }
-
-  const notifySuccess = () => toast.success("Login succes")
-
-  const signIn = async () => {
-    login(email, password)
-      .then((res) => {
-        navigation("/home")
-        notifySuccess()
-      })
-      .catch((error) => {
-        toast.error(error.message)
-      })
   }
 
   return (
@@ -94,11 +71,8 @@ const Login = () => {
           <Grid container direction="row" alignItems="center" justify="center">
             <img src={logo} className="App-logo" alt="logo" />
           </Grid>
-          <Typography fontWeight='bold' component="h1" variant={mainTitle}>
-            Talisman Sales
-          </Typography>
-          <Typography fontWeight='bold' component="h1" variant={subTitle}>
-            A Talisman Webs Platform
+          <Typography component="h1" variant="h5">
+            Continue to reset password.
           </Typography>
           <Box sx={{ mt: 1 }}>
             <TextField
@@ -109,27 +83,16 @@ const Login = () => {
               label="Email Address"
               name="email"
               autoFocus
-              onChange={emailChange}
               value={email}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              onChange={passChange}
             />
             <Button
               style={{ backgroundColor: "#FF3947", fontSize: 20 }}
-              onClick={signIn}
+              onClick={continueToPassReset}
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}>
-              Sign In
+              Continue
             </Button>
           </Box>
         </Box>
@@ -152,4 +115,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default EmailStep

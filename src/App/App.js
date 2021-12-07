@@ -6,6 +6,7 @@ import { useAuth } from "../Contexts/AuthContext"
 
 import Login from "../Pages/Authentication/Login"
 import ResetPassword from "../Pages/Authentication/ResetPassword"
+import EmailStep from "../Pages/Authentication/EmailStep"
 import Home from "../Pages/Home"
 
 const App = () => {
@@ -19,6 +20,14 @@ const App = () => {
             element={
               <RequireAuth>
                 <Home />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/emailStep"
+            element={
+              <RequireAuth>
+                <EmailStep />
               </RequireAuth>
             }
           />

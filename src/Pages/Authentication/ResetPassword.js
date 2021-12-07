@@ -9,7 +9,7 @@ import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { useNavigate, useLocation } from "react-router-dom"
-import { toast } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import logo from "../Home/biglogo.png"
 import "../Home/Home.css"
 
@@ -45,6 +45,8 @@ function useQuery() {
 const ResetPassword = () => {
   const navigation = useNavigate()
   const [password, setPassword] = useState("")
+  
+  const passwordChangedToast = () => toast.success('Password was succesfully changed.')
 
   const { resetPassword } = useAuth()
   const query = useQuery()
@@ -53,13 +55,13 @@ const ResetPassword = () => {
     setPassword(event.target.value)
   }
 
-  const signIn = () => {
+  const resetUserPass = () => {
     resetPassword(query.get("oobCode"), password)
       .then((res) => {
-        console.log(res)
+        passwordChangedToast()
         navigation("/")
       })
-      .catch((error) => console.log(error.message))
+      .catch((error) => toast.error(error.message))
   }
 
   return (
@@ -92,7 +94,7 @@ const ResetPassword = () => {
             />
             <Button
               style={{ backgroundColor: "#FF3947", fontSize: 20 }}
-              onClick={signIn}
+              onClick={resetUserPass}
               type="submit"
               fullWidth
               variant="contained"
@@ -110,6 +112,18 @@ const ResetPassword = () => {
             </Button>
           </Box>
         </Box>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={'colored'}
+        />
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>

@@ -312,7 +312,6 @@ const FullWebsiteCalc = () => {
             id="pagesQT"
             label="How Many Web Pages?"
             name="pagesQty"
-            autoFocus
             onChange={handlePageQty}
           />
         </FormControl>

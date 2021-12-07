@@ -294,7 +294,6 @@ const AcommodationWebsiteCalc = () => {
             id="pagesQT"
             label="How Many Rooms?"
             name="pagesQty"
-            autoFocus
             onChange={handleRoomQty}
           />
         </FormControl>
