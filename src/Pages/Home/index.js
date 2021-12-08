@@ -79,7 +79,7 @@ function Home() {
             value={authValue}
             onChange={handleAuthTabChange}
             aria-label="secondary tabs example">
-            <Tab style={{color: '#333', fontWeight: 'bolder'}} value="resetPass" label="Reset Password" onClick={() => navigation('/emailStep')} />
+              {/*<Tab style={{color: '#333', fontWeight: 'bolder'}} value="resetPass" label="Reset Password" onClick={() => navigation('/emailStep')} />*/}
             <Tab style={{color: '#FF3947', fontWeight: 'bolder'}} value="logout" label="Logout" onClick={signOut} />
           </Tabs>
         </Box>
