@@ -36,9 +36,7 @@ export default function AuthContextProvider({ children }) {
 
   // for development purposes use localhost address http://localhost:3000/
   function forgotPassword(email) {
-    return sendPasswordResetEmail(auth, email, {
-      url: 'https://talismansales.netlify.app/'
-    })
+    return sendPasswordResetEmail(auth, email)
   }
 
   function resetPassword(oobCode, password) {
