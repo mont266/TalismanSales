@@ -39,10 +39,10 @@ const theme = createTheme()
 const EmailStep = () => {
   const [email, setEmail] = useState("")
 
-  const { forgotPassword, currentUser } = useAuth()
+  const { forgotPassword, logout, currentUser } = useAuth()
 
   const checkEmailToast = () =>
-    toast.success("Please check your email for password change.")
+    toast.success("Please check your email for password change. Also check your spam or trash inbox.")
 
   useEffect(() => {
     setEmail(currentUser.email)
@@ -52,6 +52,8 @@ const EmailStep = () => {
     try {
       forgotPassword(email)
       checkEmailToast()
+      logout()
+      navigation('/')
     } catch (e) {
       toast.error(e.message)
     }
