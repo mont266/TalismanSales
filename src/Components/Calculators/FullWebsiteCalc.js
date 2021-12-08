@@ -72,6 +72,10 @@ const FullWebsiteCalc = () => {
   const [showDiscount, setShowDiscount] = useState(false)
   const [formWidth, setFormWidth] = useState(0)
 
+  const fullPayment = Math.round(initRes * 100) / 100
+  const depositAmount = Math.round(deposit * 100) / 100
+  const savingsAmount = Math.round(savings * 100) / 100
+
   useEffect(() => {
     if (width < 500) {
       setFormWidth(350)
@@ -259,10 +263,6 @@ const FullWebsiteCalc = () => {
       setShowDiscount(false)
     }
 
-    if (discount === "0 %") {
-      setSavings(0)
-    }
-
     setInitRes(
       websiteCost +
         pageRes +
@@ -276,6 +276,23 @@ const FullWebsiteCalc = () => {
         domainRes -
         creditRes
     )
+
+    if (discount === "0 %") {
+      setSavings(0)
+          setInitRes(
+      websiteCost +
+        pageRes +
+        contentRes +
+        blogRes +
+        cmsRes +
+        analyticsRes +
+        hostRes +
+        liveChatRes +
+        ecommerceRes +
+        domainRes -
+        creditRes
+    )
+    }
 
     if (discount === "5 %") {
       setInitRes(initRes * 0.95)
@@ -486,16 +503,16 @@ const FullWebsiteCalc = () => {
       </Box>
       {showCost ? (
         <div style={{ textAlign: "center", backgroundColor: '#FF3947', minWidth: formWidth, padding: 4 }}>
-          <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Full payment: £ {initRes}</Typography>
+          <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Full payment: £ {fullPayment}</Typography>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
             £ {resMonthly} Per Month £ Or {resYearly} Yearly
           </Typography>
-          <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Deposit: £ {deposit}</Typography>
+          <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Deposit: £ {depositAmount}</Typography>
         </div>
       ) : null}
       {showDiscount ? (
         <div style={{ textAlign: "center", backgroundColor: '#FF3947', minWidth: formWidth, padding: 4 }}>
-          <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Client Saves: £ {savings} with discount</Typography>
+          <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Client Saves: £ {savingsAmount} with discount</Typography>
         </div>
       ) : null}
       <Button

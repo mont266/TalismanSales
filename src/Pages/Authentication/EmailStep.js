@@ -9,6 +9,8 @@ import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { toast, ToastContainer } from "react-toastify"
+import { useNavigate } from "react-router-dom"
+
 import logo from "../Home/biglogo.png"
 import "../Home/Home.css"
 
@@ -37,6 +39,7 @@ const Copyright = (props) => {
 const theme = createTheme()
 
 const EmailStep = () => {
+  const navigation = useNavigate()
   const [email, setEmail] = useState("")
 
   const { forgotPassword, logout, currentUser } = useAuth()
