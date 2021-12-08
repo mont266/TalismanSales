@@ -505,7 +505,7 @@ const FullWebsiteCalc = () => {
         <div style={{ textAlign: "center", backgroundColor: '#FF3947', minWidth: formWidth, padding: 4 }}>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Full payment: £ {fullPayment}</Typography>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
-            £ {resMonthly} Per Month £ Or {resYearly} Yearly
+            £ {resMonthly} Per Month Or £ {resYearly} Yearly
           </Typography>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Deposit: £ {depositAmount}</Typography>
         </div>
