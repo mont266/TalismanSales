@@ -123,7 +123,7 @@ const Login = () => {
               onChange={passChange}
             />
             <Button
-              style={{ backgroundColor: "#FF3947", fontSize: 20 }}
+              style={{ backgroundColor: "#3A2C6E", fontSize: 20 }}
               onClick={signIn}
               type="submit"
               fullWidth

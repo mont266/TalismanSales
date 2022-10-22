@@ -80,7 +80,7 @@ function Home() {
             onChange={handleAuthTabChange}
             aria-label="secondary tabs example">
             <Tab style={{color: '#333', fontWeight: 'bolder'}} value="resetPass" label="Reset Password" onClick={() => navigation('/emailStep')} />
-            <Tab style={{color: '#FF3947', fontWeight: 'bolder'}} value="logout" label="Logout" onClick={signOut} />
+            <Tab style={{color: '#3A2C6E', fontWeight: 'bolder'}} value="logout" label="Logout" onClick={signOut} />
           </Tabs>
         </Box>
         <Box sx={{ width: "100%", marginBottom: 5 }}>
@@ -91,8 +91,8 @@ function Home() {
             textColor="primary"
             indicatorColor="primary"
             aria-label="secondary tabs example">
-            <Tab value="one" label="Full Website" />
             <Tab value="two" label="Landing Page" />
+            <Tab value="one" label="E-Commerce / Custom Website" />
             <Tab value="three" label="Acommodation Website" />
             <Tab value="four" label="Social Media Page" />
           </Tabs>

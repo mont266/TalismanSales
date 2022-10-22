@@ -9,16 +9,16 @@ import Grid from '@mui/material/Grid'
 import Button from "@mui/material/Button"
 import useWindowDimensions from "../../Hooks/ScreenDimensions"
 
-const websiteCost = 250.0
-const analyticsCost = 25.0
+const websiteCost = 360.0
+const analyticsCost = 0.0
 const hostCost = 6.0
 const domainFee = 10.0
 const liveChatCost = 10.0
-const creditDisc = 10.0
+const creditDisc = 5.0
 const cmsCost = 40.0
-const mainLow = 5.0
-const mainMed = 10.0
-const mainHigh = 15.0
+const mainLow = 10.0
+const mainMed = 20.0
+const mainHigh = 35.0
 
 const LandingPageCalc = () => {
   const { width } = useWindowDimensions()
@@ -361,7 +361,7 @@ const LandingPageCalc = () => {
         </FormControl>
       </Box>
       {showCost ? (
-        <div style={{ textAlign: "center", backgroundColor: '#FF3947', minWidth: formWidth, padding: 4 }}>
+        <div style={{ textAlign: "center", backgroundColor: '#3A2C6E', minWidth: formWidth, padding: 4 }}>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Full payment: £ {fullPayment}</Typography>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
             £ {resMonthly} Per Month Or £ {resYearly} Yearly
@@ -375,7 +375,7 @@ const LandingPageCalc = () => {
         </div>
       ) : null}
       <Button
-        style={{ backgroundColor: '#FF3947', fontSize: 20 }}
+        style={{ backgroundColor: '#3A2C6E', fontSize: 20 }}
         onClick={calculateCost}
         type="submit"
         variant="contained"

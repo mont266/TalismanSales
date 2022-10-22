@@ -11,16 +11,15 @@ import Button from "@mui/material/Button"
 import useWindowDimensions from "../../Hooks/ScreenDimensions"
 
 const websiteCost = 450.0
-const pageCost = 8.0
 const mainLow = 10.0
-const mainMed = 15.0
-const mainHigh = 25.0
+const mainMed = 20.0
+const mainHigh = 35.0
 const contentCost = 60.0
 const liveChatCost = 10.0
 const ecommerceCost = 300.0
 const ecommerceMonCost = 12.0
 const blogCost = 60.0
-const analyticsCost = 25.0
+const analyticsCost = 0.0
 const hostCost = 6.0
 const domainFee = 10.0
 const creditDisc = 10.0
@@ -29,7 +28,6 @@ const cmsCost = 20.0
 const FullWebsiteCalc = () => {
   const { width } = useWindowDimensions()
 
-  const [pageQty, setPageQty] = useState(0)
   const [contentQty, setContentQty] = useState(0)
   const [blogQty, setBlogQty] = useState(0)
   const [analyticsQty, setAnalyticsQty] = useState(0)
@@ -40,7 +38,6 @@ const FullWebsiteCalc = () => {
   const [ecommerceMonQty, setEcommerceMonQty] = useState(0)
   const [creditQty, setCreditQty] = useState(0)
   const [cmsQty, setCmsQty] = useState(0)
-  const [pageRes, setPageRes] = useState(0)
   const [contentRes, setContentRes] = useState(0)
   const [liveChatRes, setLiveChatRes] = useState(0)
   const [ecommerceRes, setEcommerceRes] = useState(0)
@@ -83,14 +80,6 @@ const FullWebsiteCalc = () => {
       setFormWidth(600)
     }
   }, [width])
-
-  useEffect(() => {
-    if (pageQty > 0) {
-      setPageRes(pageCost * pageQty + 1.5 * pageQty)
-    } else {
-      setPageRes(pageCost * 0 + 1.5 * 0)
-    }
-  }, [pageQty])
 
   useEffect(() => {
     if (maintenance === "low") {
@@ -140,8 +129,13 @@ const FullWebsiteCalc = () => {
 
   useEffect(() => {
     if (cms === "yes") {
-      setCmsQty(1)
-      setCmsRes(cmsCost * cmsQty)
+      if (ecommerce === "yes") {
+        setCmsQty(0)
+        setCmsRes(cmsCost * cmsQty)
+      } else {
+        setCmsQty(1)
+        setCmsRes(cmsCost * cmsQty)
+      }
     } else {
       setCmsQty(0)
       setCmsRes(cmsCost * cmsQty)
@@ -150,8 +144,13 @@ const FullWebsiteCalc = () => {
 
   useEffect(() => {
     if (blog === "yes") {
-      setBlogQty(1)
-      setBlogRes(blogCost * blogQty)
+      if (ecommerce === "yes") {
+        setBlogQty(0)
+        setBlogRes(blogCost * blogQty)
+      } else {
+        setBlogQty(1)
+        setBlogRes(blogCost * blogQty)
+      }
     } else {
       setBlogQty(0)
       setBlogRes(blogCost * blogQty)
@@ -170,8 +169,13 @@ const FullWebsiteCalc = () => {
 
   useEffect(() => {
     if (webHosting === "yes") {
-      setHostQty(1)
-      setHostRes(hostCost * hostQty)
+      if (ecommerce === "yes") {
+        setHostQty(0)
+        setHostRes(hostCost * hostQty)
+      } else {
+        setHostQty(1)
+        setHostRes(hostCost * hostQty)
+      }
     } else {
       setHostQty(0)
       setHostRes(hostCost * hostQty)
@@ -203,10 +207,6 @@ const FullWebsiteCalc = () => {
       setDeposit(initRes / 2)
     }
   }, [initRes])
-
-  const handlePageQty = (event) => {
-    setPageQty(event.target.value)
-  }
 
   const handleMaintenance = (event) => {
     setMaintenance(event.target.value)
@@ -265,7 +265,6 @@ const FullWebsiteCalc = () => {
 
     setInitRes(
       websiteCost +
-        pageRes +
         contentRes +
         blogRes +
         cmsRes +
@@ -281,7 +280,6 @@ const FullWebsiteCalc = () => {
       setSavings(0)
           setInitRes(
       websiteCost +
-        pageRes +
         contentRes +
         blogRes +
         cmsRes +
@@ -320,19 +318,6 @@ const FullWebsiteCalc = () => {
 
   return (
     <Grid container direction='column' alignItems='center' justify='center'>
-      <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
-        <FormControl fullWidth>
-          <TextField
-            fullWidth
-            required
-            margin="normal"
-            id="pagesQT"
-            label="How Many Web Pages?"
-            name="pagesQty"
-            onChange={handlePageQty}
-          />
-        </FormControl>
-      </Box>
       <Box sx={{ minWidth: formWidth, marginBottom: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="maintenance-level">
@@ -502,7 +487,7 @@ const FullWebsiteCalc = () => {
         </FormControl>
       </Box>
       {showCost ? (
-        <div style={{ textAlign: "center", backgroundColor: '#FF3947', minWidth: formWidth, padding: 4 }}>
+        <div style={{ textAlign: "center", backgroundColor: '#3A2C6E', minWidth: formWidth, padding: 4 }}>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>Full payment: £ {fullPayment}</Typography>
           <Typography style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
             £ {resMonthly} Per Month Or £ {resYearly} Yearly
@@ -516,7 +501,7 @@ const FullWebsiteCalc = () => {
         </div>
       ) : null}
       <Button
-        style={{ backgroundColor: '#FF3947', fontSize: 20 }}
+        style={{ backgroundColor: '#3A2C6E', fontSize: 20 }}
         onClick={calculateCost}
         type="submit"
         variant="contained"

@@ -37,7 +37,7 @@ export default function MobileTabs() {
             onChange={handleAuthTabChange}
             aria-label="secondary tabs example">
             <Tab style={{color: '#333', fontWeight: 'bolder'}} value="resetPass" label="Reset Password" onClick={() => navigation('/resetPassword')} />
-            <Tab style={{color: '#FF3947', fontWeight: 'bolder'}} value="logout" label="Logout" onClick={signOut} />
+            <Tab style={{color: '#3A2C6E', fontWeight: 'bolder'}} value="logout" label="Logout" onClick={signOut} />
           </Tabs>
         </Box>
       <ButtonGroup
@@ -47,13 +47,13 @@ export default function MobileTabs() {
         aria-label="medium outline primary button group">
         <Button
           style={{ borderRadius: 0, height: 60 }}
-          onClick={() => setValue("Full Website")}>
-          Full Website
+          onClick={() => setValue("Landing Page")}>
+          Landing Page
         </Button>
         <Button
           style={{ borderRadius: 0, height: 60 }}
-          onClick={() => setValue("Landing Page")}>
-          Landing Page
+          onClick={() => setValue("E-Commerce / Custom Website")}>
+          E-Commerce / Custom Website
         </Button>
       </ButtonGroup>
       <ButtonGroup
@@ -72,8 +72,8 @@ export default function MobileTabs() {
           Social Media Page
         </Button>
       </ButtonGroup>
-      {value === "Full Website" ? <FullWebsiteCalc /> : null}
       {value === "Landing Page" ? <LandingPageCalc /> : null}
+      {value === "E-Commerce / Custom Website" ? <FullWebsiteCalc /> : null}
       {value === "Acommodation Website" ? <AcommodationWebsiteCalc /> : null}
       {value === "Social Media Page" ? <SocialMediaPageCalc /> : null}
     </>
